@@ -20,16 +20,22 @@ const styles: any = theme => ({
 
 @withStyles(styles)
 @autoBind
-export class ApplicationIndex extends React.PureComponent<any, any> {
+export class Application extends React.PureComponent<any, any> {
   state = {
     open: false
   };
 
-  handleDrawerOpen() {
+  /**
+   * 打开菜单
+   */
+  handleMenuOpen() {
     this.setState({open: true});
   };
 
-  handleDrawerClose() {
+  /**
+   * 缩小菜单
+   */
+  handleMenuClose() {
     this.setState({open: false});
   };
 
@@ -40,10 +46,10 @@ export class ApplicationIndex extends React.PureComponent<any, any> {
       <div className={classes.root}>
         <CssBaseline/>
         <Header open={open}
-                handleDrawerOpen={this.handleDrawerOpen}
+                handleMenuOpen={this.handleMenuOpen}
         />
         <Menu open={open}
-              handleDrawerClose={this.handleDrawerClose}
+              handleMenuClose={this.handleMenuClose}
         />
         <Content/>
       </div>

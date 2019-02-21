@@ -13,6 +13,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { withStyles } from '../../utils/withStyles';
+import StarBorder from '@material-ui/icons/StarBorder';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import { autoBind } from '@sitb/wbs/autoBind';
+import { getActions } from '../../core/store';
+import { routerPath } from '../../core/router.config';
 
 const drawerWidth = 240;
 
@@ -60,9 +67,23 @@ const styles: any = theme => ({
 });
 
 @withStyles(styles, {withTheme: true})
+@autoBind
 export class Menu extends React.PureComponent<any, any> {
+  state = {
+    open: true
+  };
+
+  handleClick = () => {
+    this.setState(state => ({open: !state.open}));
+  };
+
+  handleClickMenu() {
+    console.log('test');
+    getActions().navigator.navigate(routerPath.tradeQuery);
+  }
+
   render() {
-    const {classes, theme, handleDrawerClose, open} = this.props;
+    const {classes, theme, handleMenuClose, open} = this.props;
     return (
       <Drawer variant="permanent"
               className={classNames(classes.drawer, {
@@ -78,7 +99,7 @@ export class Menu extends React.PureComponent<any, any> {
               open={open}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleMenuClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
           </IconButton>
         </div>
@@ -91,10 +112,33 @@ export class Menu extends React.PureComponent<any, any> {
             >
               <ListItemIcon className={classes.icon}>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
               <ListItemText primary={text}
-                            classes={{ primary: classes.primary }}
+                            classes={{primary: classes.primary}}
               />
             </ListItem>
           ))}
+          <ListItem button onClick={this.handleClick}>
+            <ListItemIcon>
+              <InboxIcon/>
+            </ListItemIcon>
+            <ListItemText inset primary="Inbox"/>
+            {this.state.open ? <ExpandLess/> : <ExpandMore/>}
+          </ListItem>
+          <Collapse in={this.state.open}
+                    timeout="auto"
+                    unmountOnExit
+          >
+            <List disablePadding>
+              <ListItem button
+                        className={classes.nested}
+                        onClick={this.handleClickMenu}
+              >
+                <ListItemIcon>
+                  <StarBorder/>
+                </ListItemIcon>
+                <ListItemText inset primary="Starred"/>
+              </ListItem>
+            </List>
+          </Collapse>
         </List>
         <Divider/>
         <List>
@@ -105,7 +149,7 @@ export class Menu extends React.PureComponent<any, any> {
             >
               <ListItemIcon className={classes.icon}>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
               <ListItemText primary={text}
-                            classes={{ primary: classes.primary }}
+                            classes={{primary: classes.primary}}
               />
             </ListItem>
           ))}

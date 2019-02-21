@@ -171,7 +171,7 @@ export class Header extends React.Component<any, any> {
 
   render() {
     const {anchorEl} = this.state;
-    const {classes, open, handleDrawerOpen} = this.props;
+    const {classes, open, handleMenuOpen} = this.props;
     const isMenuOpen = Boolean(anchorEl);
     // 移动端下拉菜单配置
     const mobileMenuDropConfig = [{
@@ -208,7 +208,7 @@ export class Header extends React.Component<any, any> {
           <Toolbar disableGutters={!open}>
             <IconButton color="inherit"
                         aria-label="Open drawer"
-                        onClick={handleDrawerOpen}
+                        onClick={handleMenuOpen}
                         className={classNames(classes.menuButton, {
                           [classes.hide]: open
                         })}
