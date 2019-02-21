@@ -8,13 +8,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -37,45 +34,6 @@ const styles: any = theme => ({
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block'
-    }
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 3,
-      width: 'auto'
-    }
-  },
-  searchIcon: {
-    width: theme.spacing.unit * 9,
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  inputRoot: {
-    color: 'inherit',
-    width: '100%'
-  },
-  inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200
     }
   },
   sectionDesktop: {
@@ -112,21 +70,28 @@ export class Header extends React.Component<any, any> {
     this.handleMobileMenuClose();
   }
 
+  /**
+   * 移动端菜单 开启
+   * @param event
+   */
   handleMobileMenuOpen = event => {
     this.setState({mobileMoreAnchorEl: event.currentTarget});
   };
 
+  /**
+   * 移动端菜单 关闭
+   */
   handleMobileMenuClose() {
     this.setState({mobileMoreAnchorEl: null});
   };
 
-  render() {
-    const {anchorEl, mobileMoreAnchorEl} = this.state;
-    const {classes} = this.props;
+  /**
+   * pc端个人模块 下拉菜单
+   */
+  renderHeaderMenuDrop() {
+    const {anchorEl} = this.state;
     const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const renderMenu = (
+    return (
       <Menu anchorEl={anchorEl}
             anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             transformOrigin={{vertical: 'top', horizontal: 'right'}}
@@ -136,40 +101,85 @@ export class Header extends React.Component<any, any> {
         <MenuItem onClick={this.handleMenuClose}>{'修改密码'}</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>{'退出'}</MenuItem>
       </Menu>
-    );
+    )
+  }
 
-    const renderMobileMenu = (
+  /**
+   * 移动端顶部菜单 下拉菜单
+   * @param config  配置文件
+   */
+  renderHeaderMobileMenuDrop(config) {
+    const {mobileMoreAnchorEl} = this.state;
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const menuContent: any = [];
+    config.forEach((item, index) => menuContent.push(
+      <MenuItem onClick={this.handleProfileMenuOpen}
+                key={index}
+      >
+        <IconButton color="inherit">
+          <Badge badgeContent={11} color="secondary">
+            <item.icon/>
+          </Badge>
+        </IconButton>
+        <p>{item.name}</p>
+      </MenuItem>
+    ));
+    return (
       <Menu anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             transformOrigin={{vertical: 'top', horizontal: 'right'}}
             open={isMobileMenuOpen}
             onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon/>
-            </Badge>
-          </IconButton>
-          <p>消息</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon/>
-            </Badge>
-          </IconButton>
-          <p>通知</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton color="inherit">
-            <AccountCircle/>
-          </IconButton>
-          <p>个人信息</p>
-        </MenuItem>
+        {menuContent}
       </Menu>
-    );
+    )
+  }
 
+  renderHeaderMenu(config) {
+    return config.map((item, index) => (
+      <IconButton color="inherit"
+                  key={index}
+                  {...item.props}
+      >
+        <Badge badgeContent={4}
+               color="secondary"
+        >
+          <item.icon/>
+        </Badge>
+      </IconButton>
+    ))
+  }
+
+  render() {
+    const {anchorEl} = this.state;
+    const {classes} = this.props;
+    const isMenuOpen = Boolean(anchorEl);
+    // 移动端下拉菜单配置
+    const mobileMenuDropConfig = [{
+      name: '消息',
+      icon: MailIcon
+    }, {
+      name: '通知',
+      icon: NotificationsIcon
+    }, {
+      name: '个人信息',
+      icon: AccountCircle
+    }];
+    // 顶部菜单配置文件
+    const headerMenuConfig = [{
+      icon: MailIcon
+    }, {
+      icon: NotificationsIcon
+    }, {
+      icon: AccountCircle,
+      props: {
+        'aria-owns': isMenuOpen ? 'material-appbar' : undefined,
+        'aria-haspopup': "true",
+        onClick: this.handleProfileMenuOpen,
+        color: "inherit"
+      }
+    }];
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -187,40 +197,9 @@ export class Header extends React.Component<any, any> {
             >
               {'商户服务平台'}
             </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon/>
-              </div>
-              <InputBase placeholder="Search…"
-                         classes={{
-                           root: classes.inputRoot,
-                           input: classes.inputInput
-                         }}
-              />
-            </div>
             <div className={classes.grow}/>
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                <Badge badgeContent={4}
-                       color="secondary"
-                >
-                  <MailIcon/>
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                <Badge badgeContent={17}
-                       color="secondary"
-                >
-                  <NotificationsIcon/>
-                </Badge>
-              </IconButton>
-              <IconButton aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                          aria-haspopup="true"
-                          onClick={this.handleProfileMenuOpen}
-                          color="inherit"
-              >
-                <AccountCircle/>
-              </IconButton>
+              {this.renderHeaderMenu(headerMenuConfig)}
             </div>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true"
@@ -232,8 +211,8 @@ export class Header extends React.Component<any, any> {
             </div>
           </Toolbar>
         </AppBar>
-        {renderMenu}
-        {renderMobileMenu}
+        {this.renderHeaderMenuDrop()}
+        {this.renderHeaderMobileMenuDrop(mobileMenuDropConfig)}
       </div>
     );
   }
