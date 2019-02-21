@@ -1,6 +1,6 @@
-import { Home } from '../container/Home';
+import { ApplicationIndex } from '../container/Application';
 
 export default [{
   path: '/home',
-  component: Home,
+  component: ApplicationIndex,
 }];
