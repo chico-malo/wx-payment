@@ -4,20 +4,30 @@
  * date: 2019/2/21
  */
 import * as React from 'react';
-import { Typography } from '@material-ui/core';
 import { withStyles } from '../../utils/withStyles';
+import routes, { routerPath } from '../../core/router.config';
+import { getState } from '../../core/store';
+import { HashRouter, Redirect, Route } from 'react-router-dom';
+
+function createRender(route) {
+  return props => {
+    // 修改页面title
+    document.title = route.title || '';
+    const params = getState().navigator.router[route.path];
+    // pass the sub-routes down to keep nesting
+    return (
+      <route.component {...props}
+                       params={params}
+      />
+    );
+  };
+}
 
 const styles: any = theme => ({
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar
+    padding: theme.spacing.unit * 3,
+    paddingTop: 70
   }
 });
 
@@ -27,10 +37,21 @@ export class Content extends React.PureComponent<any, any> {
     const {classes} = this.props;
     return (
       <main className={classes.content}>
-        <div className={classes.toolbar}/>
-        <Typography paragraph>
-          ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-        </Typography>
+        <HashRouter>
+          <React.Fragment>
+            <Route exact
+                   path="/"
+                   render={() => (<Redirect to={routerPath.dashboard}/>)}
+            />
+            {routes.map((route: any, index) => (
+              <Route path={route.path}
+                     render={createRender(route)}
+                     key={index}
+                     exact={route.exact}
+              />
+            ))}
+          </React.Fragment>
+        </HashRouter>
       </main>
     )
   }
