@@ -12,7 +12,7 @@ import createHashHistory from 'history/createHashHistory';
 
 import { create as createAppStore } from './core/store';
 
-import App from './container';
+import { Application } from './container/Application';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const hashHistory = createHashHistory();
@@ -30,7 +30,7 @@ const store = createAppStore({
 bootstrap(() => (
   <Provider store={store}>
     <ConnectedRouter history={hashHistory}>
-      <App/>
+      <Application/>
     </ConnectedRouter>
   </Provider>
 ));
