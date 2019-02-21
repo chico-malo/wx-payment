@@ -47,6 +47,16 @@ const styles: any = theme => ({
     padding: '0 8px',
     ...theme.mixins.toolbar
   },
+  menuItem: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& $primary, & $icon': {
+        color: theme.palette.common.white
+      }
+    }
+  },
+  primary: {},
+  icon: {}
 });
 
 @withStyles(styles, {withTheme: true})
@@ -75,18 +85,28 @@ export class Menu extends React.PureComponent<any, any> {
         <Divider/>
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-              <ListItemText primary={text}/>
+            <ListItem button
+                      key={text}
+                      className={classes.menuItem}
+            >
+              <ListItemIcon className={classes.icon}>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
+              <ListItemText primary={text}
+                            classes={{ primary: classes.primary }}
+              />
             </ListItem>
           ))}
         </List>
         <Divider/>
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-              <ListItemText primary={text}/>
+            <ListItem button
+                      key={text}
+                      className={classes.menuItem}
+            >
+              <ListItemIcon className={classes.icon}>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
+              <ListItemText primary={text}
+                            classes={{ primary: classes.primary }}
+              />
             </ListItem>
           ))}
         </List>
