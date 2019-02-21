@@ -4,6 +4,7 @@
  * date: 2019/2/21
  */
 import * as React from 'react';
+import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,19 +17,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { witchStyles } from '../../utils/withStyles';
+import { withStyles } from '../../utils/withStyles';
 import { autoBind } from '@sitb/wbs/autoBind';
 
+const drawerWidth = 240;
+
 const styles: any = theme => ({
-  root: {
-    width: '100%'
-  },
   grow: {
     flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
   },
   title: {
     display: 'none',
@@ -47,18 +43,40 @@ const styles: any = theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'none'
     }
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36
+  },
+  hide: {
+    display: 'none'
   }
 });
 
 /**
  * @author 田尘殇Sean(sean.snow@live.com) create at 2018/10/2
  */
-@witchStyles(styles)
+@withStyles(styles)
 @autoBind
 export class Header extends React.Component<any, any> {
   state = {
     anchorEl: null,
-    mobileMoreAnchorEl: null,
+    mobileMoreAnchorEl: null
   };
 
   handleProfileMenuOpen(event) {
@@ -153,7 +171,7 @@ export class Header extends React.Component<any, any> {
 
   render() {
     const {anchorEl} = this.state;
-    const {classes} = this.props;
+    const {classes, open, handleDrawerOpen} = this.props;
     const isMenuOpen = Boolean(anchorEl);
     // 移动端下拉菜单配置
     const mobileMenuDropConfig = [{
@@ -181,12 +199,19 @@ export class Header extends React.Component<any, any> {
       }
     }];
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton}
-                        color="inherit"
+      <React.Fragment>
+        <AppBar position="fixed"
+                className={classNames(classes.appBar, {
+                  [classes.appBarShift]: open
+                })}
+        >
+          <Toolbar disableGutters={!open}>
+            <IconButton color="inherit"
                         aria-label="Open drawer"
+                        onClick={handleDrawerOpen}
+                        className={classNames(classes.menuButton, {
+                          [classes.hide]: open
+                        })}
             >
               <MenuIcon/>
             </IconButton>
@@ -213,7 +238,7 @@ export class Header extends React.Component<any, any> {
         </AppBar>
         {this.renderHeaderMenuDrop()}
         {this.renderHeaderMobileMenuDrop(mobileMenuDropConfig)}
-      </div>
+      </React.Fragment>
     );
   }
 }
