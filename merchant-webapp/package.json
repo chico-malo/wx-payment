@@ -1,0 +1,45 @@
+{
+  "private": true,
+  "name": "arapp",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "arapp serve",
+    "bundle": "arapp bundle"
+  },
+  "author": "Sean",
+  "devServer": {
+    "host": "0.0.0.0",
+    "port": 3000,
+    "api": "http://localhost:8080"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "@sitb/svg-icon": "^1.0.1-es5",
+    "@sitb/wbs": "^1.0.138",
+    "connected-react-router": "^6.3.1",
+    "es6-promise": "^4.2.6",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-observable": "^1.0.0",
+    "rxjs": "^6.4.0",
+    "veigar": "^1.0.0-Alpha.35",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@sitb/arapp-cli": "^1.0.0-Aplha.48",
+    "autoprefixer": "^9.4.8",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^2.1.0",
+    "file-loader": "^3.0.1",
+    "node-sass": "^4.11.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2"
+  }
+}
