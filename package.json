@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "@sitb/arapp-cli": "^1.0.0-Aplha.48",
     "@sitb/svg-icon": "^1.0.1-es5",
     "@sitb/wbs": "^1.0.138",
