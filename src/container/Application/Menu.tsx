@@ -5,21 +5,20 @@
  */
 import * as React from 'react';
 import classNames from 'classnames';
+import { autoBind } from '@sitb/wbs/autoBind';
 import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { withStyles } from '../../utils/withStyles';
-import StarBorder from '@material-ui/icons/StarBorder';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { autoBind } from '@sitb/wbs/autoBind';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import { withStyles } from '../../utils/withStyles';
 import { getActions } from '../../core/store';
 import { routerPath } from '../../core/router.config';
+import { menuConfig } from '../../constants/menuConfig';
 
 const drawerWidth = 240;
 
@@ -63,40 +62,112 @@ const styles: any = theme => ({
     }
   },
   primary: {},
-  icon: {}
+  icon: {},
+  nested: {
+    paddingLeft: theme.spacing.unit * 4
+  }
 });
 
 @withStyles(styles, {withTheme: true})
 @autoBind
 export class Menu extends React.PureComponent<any, any> {
   state = {
-    open: true
+    collapseOpenKey: ''
   };
 
-  handleClick = () => {
-    this.setState(state => ({open: !state.open}));
-  };
+  /**
+   * 菜单跳转
+   * @param path      当前跳转path
+   * @param isParent  当前点击是否是父级菜单
+   */
+  handleClickMenu(path, isParent = false) {
+    const {collapseOpenKey} = this.state;
+    let newCollapseOpenKey = path;
+    // 当跳转的path 存在 collapseOpenKey字符串，表示不需要更改扩展key
+    if (collapseOpenKey && path.includes(collapseOpenKey)) {
+      newCollapseOpenKey = collapseOpenKey
+    }
+    if (isParent) {
+      // 一直点击父级，需要有toggle效果
+      newCollapseOpenKey = collapseOpenKey === path ? '' : path;
+    } else {
+      // 反之进行路由跳转
+      getActions().navigator.navigate(path || routerPath.dashboard);
+    }
+    this.setState({collapseOpenKey: newCollapseOpenKey});
+  }
 
-  handleClickMenu() {
-    console.log('test');
-    getActions().navigator.navigate(routerPath.tradeQuery);
+  /**
+   * 渲染菜单
+   * @param config        菜单配置文件
+   * @param isExtendIcon  是否渲染扩展图标 | 是否包含子级
+   */
+  renderMenu(config, isExtendIcon = false) {
+    const {classes} = this.props;
+    const {collapseOpenKey} = this.state;
+    return (
+      <List>
+        {
+          config.map((item, index) => {
+            // 是否打开折叠，当前存储的path  跟 item path比较
+            const isCollapseOpen = collapseOpenKey === item.path;
+            return (
+              <React.Fragment key={index}>
+                <ListItem button
+                          key={index}
+                          divider={isCollapseOpen}
+                          className={classNames(classes.menuItem, isExtendIcon && classes.nested)}
+                          onClick={() => this.handleClickMenu(item.path, item.children)}
+                >
+                  <ListItemIcon className={classes.icon}>
+                    <InboxIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={item.name}
+                                inset
+                                classes={{primary: classes.primary}}
+                  />
+                  {
+                    item.children && (
+                      <React.Fragment>
+                        {isCollapseOpen ? <ExpandLess className={classes.icon}/> :
+                          <ExpandMore className={classes.icon}/>}
+                      </React.Fragment>
+                    )
+                  }
+                </ListItem>
+                {
+                  item.children && (
+                    <Collapse in={isCollapseOpen}
+                              timeout="auto"
+                              unmountOnExit
+                    >
+                      {this.renderMenu(item.children, true)}
+                    </Collapse>
+                  )
+                }
+              </React.Fragment>
+            )
+          })
+        }
+      </List>
+    )
   }
 
   render() {
-    const {classes, theme, handleMenuClose, open} = this.props;
+    const {classes, theme, handleMenuClose, menuOpen} = this.props;
     return (
       <Drawer variant="permanent"
               className={classNames(classes.drawer, {
-                [classes.drawerOpen]: open,
-                [classes.drawerClose]: !open
+                [classes.drawerOpen]: menuOpen,
+                [classes.drawerClose]: !menuOpen
               })}
               classes={{
                 paper: classNames({
-                  [classes.drawerOpen]: open,
-                  [classes.drawerClose]: !open
+                  [classes.drawerOpen]: menuOpen,
+                  [classes.drawerClose]: !menuOpen
                 })
               }}
-              open={open}
+              open={menuOpen}
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleMenuClose}>
@@ -104,56 +175,7 @@ export class Menu extends React.PureComponent<any, any> {
           </IconButton>
         </div>
         <Divider/>
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button
-                      key={text}
-                      className={classes.menuItem}
-            >
-              <ListItemIcon className={classes.icon}>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-              <ListItemText primary={text}
-                            classes={{primary: classes.primary}}
-              />
-            </ListItem>
-          ))}
-          <ListItem button onClick={this.handleClick}>
-            <ListItemIcon>
-              <InboxIcon/>
-            </ListItemIcon>
-            <ListItemText inset primary="Inbox"/>
-            {this.state.open ? <ExpandLess/> : <ExpandMore/>}
-          </ListItem>
-          <Collapse in={this.state.open}
-                    timeout="auto"
-                    unmountOnExit
-          >
-            <List disablePadding>
-              <ListItem button
-                        className={classes.nested}
-                        onClick={this.handleClickMenu}
-              >
-                <ListItemIcon>
-                  <StarBorder/>
-                </ListItemIcon>
-                <ListItemText inset primary="Starred"/>
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
-        <Divider/>
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button
-                      key={text}
-                      className={classes.menuItem}
-            >
-              <ListItemIcon className={classes.icon}>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-              <ListItemText primary={text}
-                            classes={{primary: classes.primary}}
-              />
-            </ListItem>
-          ))}
-        </List>
+        {this.renderMenu(menuConfig)}
       </Drawer>
     )
   }
