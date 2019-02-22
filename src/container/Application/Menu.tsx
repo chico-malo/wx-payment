@@ -12,7 +12,6 @@ import Collapse from '@material-ui/core/Collapse';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import { withStyles } from '../../utils/withStyles';
@@ -120,7 +119,7 @@ export class Menu extends React.PureComponent<any, any> {
                           onClick={() => this.handleClickMenu(item.path, item.children)}
                 >
                   <ListItemIcon className={classes.icon}>
-                    <InboxIcon/>
+                    <item.icon/>
                   </ListItemIcon>
                   <ListItemText primary={item.name}
                                 inset
