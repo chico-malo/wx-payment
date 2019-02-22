@@ -22,33 +22,33 @@ const styles: any = theme => ({
 @autoBind
 export class Application extends React.PureComponent<any, any> {
   state = {
-    open: false
+    menuOpen: false
   };
 
   /**
    * 打开菜单
    */
   handleMenuOpen() {
-    this.setState({open: true});
+    this.setState({menuOpen: true});
   };
 
   /**
    * 缩小菜单
    */
   handleMenuClose() {
-    this.setState({open: false});
+    this.setState({menuOpen: false});
   };
 
   render() {
     const {classes} = this.props;
-    const {open} = this.state;
+    const {menuOpen} = this.state;
     return (
       <div className={classes.root}>
         <CssBaseline/>
-        <Header open={open}
+        <Header menuOpen={menuOpen}
                 handleMenuOpen={this.handleMenuOpen}
         />
-        <Menu open={open}
+        <Menu menuOpen={menuOpen}
               handleMenuClose={this.handleMenuClose}
         />
         <Content/>
