@@ -22,7 +22,7 @@ const styles: any = theme => ({
 @autoBind
 export class Application extends React.PureComponent<any, any> {
   state = {
-    menuOpen: false
+    menuOpen: true
   };
 
   /**
