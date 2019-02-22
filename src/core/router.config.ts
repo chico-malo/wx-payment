@@ -1,5 +1,6 @@
 import { Dashboard } from '../container/Dashboard';
 import { TradeQuery } from '../container/Business/TradeQuery';
+import { TradeRefund } from '../container/Business/TradeRefund';
 
 import { FundsSettlement } from '../container/Funds/FundsSettlement';
 
@@ -9,7 +10,7 @@ import { RconciliationBillDown } from '../container/Reconciliation/Rconciliation
 import { menu } from '../constants/zh-cn';
 
 // 路由路径
-export const routerPath = {
+export const routerPath: any = {
   dashboard: '/dashboard',
   business: '/business',
   businessTradeQuery: '/business/tradeQuery',
@@ -34,7 +35,7 @@ export default [{
 }, {
   path: routerPath.businessTradeRefund,
   title: menu.tradeQueryRefund,
-  component: TradeQuery
+  component: TradeRefund
 }, {
   path: routerPath.fundsSettlement,
   title: menu.fundsSettlement,
