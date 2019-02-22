@@ -1,12 +1,26 @@
 import { Dashboard } from '../container/Dashboard';
 import { TradeQuery } from '../container/Business/TradeQuery';
 
+import { FundsSettlement } from '../container/Funds/FundsSettlement';
+
+import { ReconciliationServiceBill } from '../container/Reconciliation/ReconciliationServiceBill';
+import { RconciliationBillDown } from '../container/Reconciliation/RconciliationBillDown';
+
 import { menu } from '../constants/zh-cn';
 
 // 路由路径
 export const routerPath = {
-  tradeQuery: '/business/tradeQuery',
-  dashboard: '/dashboard'
+  dashboard: '/dashboard',
+  business: '/business',
+  businessTradeQuery: '/business/tradeQuery',
+  businessTradeRefund: '/business/tradeQuery-refund',
+
+  funds: '/funds',
+  fundsSettlement: '/funds/settlement',
+
+  reconciliation: '/reconciliation',
+  reconciliationBillDown: '/reconciliation/bill-down',
+  reconciliationServiceBill: '/reconciliation/service-bill'
 };
 
 export default [{
@@ -14,7 +28,23 @@ export default [{
   title: menu.dashboard,
   component: Dashboard
 }, {
-  path: routerPath.tradeQuery,
+  path: routerPath.businessTradeQuery,
   title: menu.tradeQuery,
   component: TradeQuery
+}, {
+  path: routerPath.businessTradeRefund,
+  title: menu.tradeQueryRefund,
+  component: TradeQuery
+}, {
+  path: routerPath.fundsSettlement,
+  title: menu.fundsSettlement,
+  component: FundsSettlement
+}, {
+  path: routerPath.reconciliationBillDown,
+  title: menu.reconciliationBillDown,
+  component: RconciliationBillDown
+}, {
+  path: routerPath.reconciliationServiceBill,
+  title: menu.reconciliationServiceBill,
+  component: ReconciliationServiceBill
 }];
