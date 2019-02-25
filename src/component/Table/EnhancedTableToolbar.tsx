@@ -10,7 +10,16 @@ import {withStyles} from "../../utils/withStyles";
  * Copyright: Copyright (C) 2018 sitb.software,All Rights Reserved
  * author: yangyao(873241789@qq.com)
  * date: 2019-02-25
+ * 表单头部扩展bar，结合按钮组
  */
+
+export interface Toolbar {
+  classes?: any;
+  /**
+   * 选择数量
+   */
+  numSelected: number;
+}
 
 const toolbarStyles = theme => ({
   root: {
