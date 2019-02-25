@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Checkbox, TableCell, TableHead, TableRow, TableSortLabel, Tooltip} from "@material-ui/core";
+import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel, Tooltip } from "@material-ui/core";
 
 /**
  * Copyright: Copyright (C) 2018 sitb.software,All Rights Reserved
@@ -26,9 +26,9 @@ export class EnhancedTableHead extends React.Component<any, any> {
           {rows.map(
             row => (
               <TableCell key={row.id}
-                align={row.numeric ? 'right' : 'left'}
-                padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? order : false}
+                         align={row.numeric ? 'right' : 'left'}
+                         padding={row.disablePadding ? 'none' : 'default'}
+                         sortDirection={orderBy === row.id ? order : false}
               >
                 <Tooltip title="Sort"
                          placement={row.numeric ? 'bottom-end' : 'bottom-start'}
