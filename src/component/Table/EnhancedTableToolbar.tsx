@@ -20,21 +20,21 @@ const toolbarStyles = theme => ({
     theme.palette.type === 'light'
       ? {
         color: theme.palette.secondary.main,
-        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85)
       }
       : {
         color: theme.palette.text.primary,
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.secondary.dark
       },
   spacer: {
-    flex: '1 1 100%',
+    flex: '1 1 100%'
   },
   actions: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
   },
   title: {
-    flex: '0 0 auto',
-  },
+    flex: '0 0 auto'
+  }
 });
 
 @withStyles(toolbarStyles)
@@ -44,17 +44,17 @@ export class EnhancedTableToolbar extends React.PureComponent<any, any> {
 
     return (
       <Toolbar className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0,
+        [classes.highlight]: numSelected > 0
       })}
       >
         <div className={classes.title}>
           {numSelected > 0 ? (
             <Typography color="inherit" variant="subtitle1">
-              {numSelected} selected
+              {`${numSelected} 选择`}
             </Typography>
           ) : (
             <Typography variant="h6" id="tableTitle">
-              Nutrition
+              xxx模块
             </Typography>
           )}
         </div>
