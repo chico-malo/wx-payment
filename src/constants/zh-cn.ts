@@ -3,10 +3,16 @@
  * author: yangyao(873241789@qq.com)
  * date: 2019/2/21
  */
-
+// 常量
 export const lang = {
   previous: '上一页',
-  next: '下一页'
+  next: '下一页',
+  merchant: '所属商户',
+  time: '时间节点',
+  tradeState: '交易状态',
+  amount: '金额范围',
+  audioNumber: '交易流水号',
+  businessType: '业务类型'
 };
 //  菜单
 export const menu = {
