@@ -4,11 +4,13 @@
  * date: 2019/2/21
  */
 import * as React from 'react';
-import {autoBind} from "veigar/autoBind";
-import {TableConstant} from "../../component/Table";
+import { autoBind } from "veigar/autoBind";
+import { TableConstant } from "../../component/Table";
 import { ColumnsItem } from '../../component/Table/EnhancedTableHead';
+import { FormContainer } from '../../component/Form';
+import { lang } from '../../constants/zh-cn';
 
-const rows:Array<ColumnsItem> = [
+const rows: Array<ColumnsItem> = [
   {id: 'name', align: 'left', disablePadding: false, label: '姓名'},
   {id: 'gender', align: 'right', disablePadding: false, label: '性别'},
   {id: 'age', align: 'right', disablePadding: false, label: '年龄'},
@@ -32,11 +34,39 @@ const dataResource = [{
 @autoBind
 export class TradeQuery extends React.Component<any, any> {
   render() {
+
+    const fieldGroups: any = [{
+      fields: [{
+        label: lang.merchant,
+        name: 'merchantNo',
+        missText: '2222',
+        required: true
+      }, {
+        label: lang.time,
+        name: 'time'
+      }, {
+        label: lang.tradeState,
+        name: 'tradeState'
+      }, {
+        label: lang.amount,
+        name: 'amount'
+      }, {
+        label: lang.audioNumber,
+        name: 'audioNumber'
+      }, {
+        label: lang.businessType,
+        name: 'businessType'
+      }]
+    }];
+
     return (
-      <TableConstant dataResource={dataResource}
-                     columns={rows}
-                     selection={{type: 'checkbox'}}
-      />
+      <React.Fragment>
+        <FormContainer fieldGroups={fieldGroups}/>
+        <TableConstant dataResource={dataResource}
+                       columns={rows}
+                       selection={{type: 'checkbox'}}
+        />
+      </React.Fragment>
     );
   }
 }
