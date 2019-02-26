@@ -13,7 +13,7 @@ import {withStyles} from "../../utils/withStyles";
  * 表单头部扩展bar，结合按钮组
  */
 
-export interface Toolbar {
+export interface TableToolbar {
   classes?: any;
   /**
    * 选择数量
@@ -47,10 +47,9 @@ const toolbarStyles = theme => ({
 });
 
 @withStyles(toolbarStyles)
-export class EnhancedTableToolbar extends React.PureComponent<any, any> {
+export class EnhancedTableToolbar extends React.PureComponent<TableToolbar, any> {
   render() {
     const {numSelected, classes} = this.props;
-
     return (
       <Toolbar className={classNames(classes.root, {
         [classes.highlight]: numSelected > 0
