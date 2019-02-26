@@ -4,6 +4,10 @@
  * date: 2019/2/21
  */
 
+export const lang = {
+  previous: '上一页',
+  next: '下一页'
+};
 //  菜单
 export const menu = {
   dashboard: '仪表盘',

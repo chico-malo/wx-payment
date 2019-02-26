@@ -5,12 +5,13 @@
  */
 import * as React from 'react';
 import objectPath from 'object-path';
-import { Checkbox, Radio, Table, TableCell, Paper, TableBody, TableRow, TablePagination } from '@material-ui/core';
+import { Checkbox, Paper, Radio, Table, TableBody, TableCell, TablePagination, TableRow } from '@material-ui/core';
 import { autoBind } from "veigar/autoBind";
 
 import { withStyles } from '../../utils/withStyles';
 import { EnhancedTableToolbar } from './EnhancedTableToolbar';
 import { ColumnsItem, EnhancedTableHead, SelectionItem } from "./EnhancedTableHead";
+import { lang } from '../../constants/zh-cn';
 
 export interface TableProps {
   classes?: any;
@@ -272,10 +273,10 @@ export class TableConstant extends React.Component<TableProps, any> {
                          rowsPerPage={rowsPerPage}
                          page={page}
                          backIconButtonProps={{
-                           'aria-label': 'Previous Page',
+                           'aria-label': lang.previous
                          }}
                          nextIconButtonProps={{
-                           'aria-label': 'Next Page',
+                           'aria-label': lang.next
                          }}
                          onChangePage={this.handleChangePage}
                          onChangeRowsPerPage={this.handleChangeRowsPerPage}
