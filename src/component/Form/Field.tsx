@@ -10,14 +10,25 @@ import { TextField } from '@sitb/wbs/mui/TextField';
 import { autoBind } from '@sitb/wbs/autoBind';
 
 export interface FieldItem {
+  /**
+   * 表单label
+   */
   label: string;
+  /**
+   *  表单错误信息提示
+   */
   missText?: string;
 }
+
+// 表单layout类型
+export type variantProps = 'standard' | 'filled' | 'outlined';
+
 
 export type FieldCombination = FieldItem & TextFieldProps;
 
 export interface FieldProps {
-  fields: Array<FieldCombination>
+  fields: Array<FieldCombination>;
+  variant?: variantProps;
 }
 
 /**
@@ -28,12 +39,13 @@ export interface FieldProps {
 export class Field extends React.PureComponent<FieldProps, any> {
 
   render() {
-    const {fields} = this.props;
+    const {fields, variant} = this.props;
     return (
       <div>
         {fields.map(({...props}, index) => {
+          const newProps: any = {variant, ...props};
           return (
-            <TextField {...props}
+            <TextField {...newProps}
                        key={index}
             />
           );

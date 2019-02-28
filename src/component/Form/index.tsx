@@ -8,17 +8,17 @@ import { Button, Paper } from '@material-ui/core';
 import Form from 'veigar/Form';
 import { autoBind } from '@sitb/wbs/autoBind';
 import { withStyles } from '@sitb/wbs/mui/withStyles';
-import { TextField } from '@sitb/wbs/mui/TextField';
-import { FieldProps } from './Field';
+import { FieldProps, Field, variantProps } from './Field';
 
 export interface FieldGroup {
-  fields: Array<FieldProps>
+  fieldGroup: Array<FieldProps>
   title?: string
 }
 
 export interface FormProps {
-  fieldGroups: Array<FieldGroup>
-  classes?: any
+  classes?: any;
+  fieldGroups: Array<FieldGroup>;
+  unifiedVariant: variantProps
 }
 
 const styles = theme => ({
@@ -32,6 +32,10 @@ const styles = theme => ({
 export class FormContainer extends React.PureComponent<FormProps, any> {
   form;
 
+  static defaultProps = {
+    unifiedVariant: 'outlined'
+  };
+
   handlePasswordChange() {
     const errorFields = this.form.validate();
     if (errorFields) {
@@ -39,21 +43,21 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
       return;
     }
     const values = this.form.getValue();
-    console.log(values, this);
+    console.log(values);
   }
 
   render() {
-    const {classes, fieldGroups} = this.props;
+    const {classes, fieldGroups, unifiedVariant} = this.props;
     return (
       <Paper>
         <Form ref={node => this.form = node}>
-          {fieldGroups.map(({fields, title}, index) => (
+          {fieldGroups.map(({fieldGroup, title}, index) => (
             <div key={index} className="form-group">
               <h1>{title}</h1>
-              {fields.map(({variant = "outlined", ...field}: any, idx) => (
-                <TextField {...field}
-                           variant={variant}
-                           key={idx}
+              {fieldGroup.map(({...field}: any, idx) => (
+                <Field variant={unifiedVariant}
+                       key={idx}
+                       {...field}
                 />
               ))}
             </div>
