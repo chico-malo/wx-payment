@@ -7,7 +7,7 @@ import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
 import { TableConstant } from "../../component/Table";
 import { ColumnsItem } from '../../component/Table/EnhancedTableHead';
-import { FormContainer } from '../../component/Form';
+import { FieldGroup, FormContainer } from '../../component/Form';
 import { lang } from '../../constants/zh-cn';
 
 const rows: Array<ColumnsItem> = [
@@ -34,28 +34,29 @@ const dataResource = [{
 @autoBind
 export class TradeQuery extends React.Component<any, any> {
   render() {
-
-    const fieldGroups: any = [{
-      fields: [{
-        label: lang.merchant,
-        name: 'merchantNo',
-        missText: '2222',
-        required: true
-      }, {
-        label: lang.time,
-        name: 'time'
-      }, {
-        label: lang.tradeState,
-        name: 'tradeState'
-      }, {
-        label: lang.amount,
-        name: 'amount'
-      }, {
-        label: lang.audioNumber,
-        name: 'audioNumber'
-      }, {
-        label: lang.businessType,
-        name: 'businessType'
+    const fieldGroups: Array<FieldGroup> = [{
+      fieldGroup: [{
+        fields: [{
+          label: lang.merchant,
+          name: 'merchantNo',
+          missText: '2222',
+          required: true
+        }, {
+          label: lang.time,
+          name: 'time'
+        }, {
+          label: lang.tradeState,
+          name: 'tradeState'
+        }, {
+          label: lang.amount,
+          name: 'amount'
+        }, {
+          label: lang.audioNumber,
+          name: 'audioNumber'
+        }, {
+          label: lang.businessType,
+          name: 'businessType'
+        }]
       }]
     }];
 
