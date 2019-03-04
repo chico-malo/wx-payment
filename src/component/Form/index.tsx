@@ -25,8 +25,8 @@ export interface FormProps {
    * 表单layout
    */
   unifiedVariant: variantProps;
-  onSubmit: (values) => void;
-  onReset: () => void;
+  onSubmit?: (values) => void;
+  onReset?: () => void;
 }
 
 const styles = theme => ({
@@ -67,7 +67,7 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
    */
   onReset() {
     const {onReset} = this.props;
-    this.form.onReset();
+    this.form.resetValue();
     onReset && onReset();
   }
 
