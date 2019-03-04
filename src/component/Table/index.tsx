@@ -15,9 +15,22 @@ import { lang } from '../../constants/zh-cn';
 
 export interface TableProps {
   classes?: any;
+  /**
+   * 表格展示数据
+   */
   dataResource: Array<any>;
+  /**
+   * 表格表头配置
+   */
   columns: Array<ColumnsItem>;
+  /**
+   * 表格选择器配置
+   */
   selection?: SelectionItem;
+  /**
+   * 表格标题
+   */
+  tableTitle: string;
 }
 
 const styles = theme => ({
@@ -220,14 +233,16 @@ export class TableConstant extends React.Component<TableProps, any> {
   }
 
   render() {
-    const {classes, dataResource, columns, selection} = this.props;
+    const {classes, dataResource, columns, selection, tableTitle} = this.props;
     const {order, orderBy, selected, rowsPerPage, page} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, dataResource.length - page * rowsPerPage);
     // 获取 选择器类型
     const selectionType = objectPath.get(selection, 'type');
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length}/>
+        <EnhancedTableToolbar numSelected={selected.length}
+                              tableTitle={tableTitle}
+        />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead numSelected={selected.length}
@@ -272,12 +287,14 @@ export class TableConstant extends React.Component<TableProps, any> {
                          count={dataResource.length}
                          rowsPerPage={rowsPerPage}
                          page={page}
+                         labelRowsPerPage={lang.labelRowsPerPage}
                          backIconButtonProps={{
                            'aria-label': lang.previous
                          }}
                          nextIconButtonProps={{
                            'aria-label': lang.next
                          }}
+                         labelDisplayedRows={({from, to, count}) => `一共有${count}条数据`}
                          onChangePage={this.handleChangePage}
                          onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
