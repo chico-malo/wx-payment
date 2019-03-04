@@ -13,7 +13,10 @@ export const lang = {
   tradeState: '交易状态',
   amount: '金额范围',
   audioNumber: '交易流水号',
-  businessType: '业务类型'
+  businessType: '业务类型',
+
+  merchantNo: '商户号',
+  verifiedCode: '验证码'
 };
 //  菜单
 export const menu = {
