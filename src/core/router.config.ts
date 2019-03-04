@@ -1,4 +1,6 @@
-import { Dashboard } from '../container/Dashboard';
+import { Dashboard } from '../container/root/Dashboard';
+import { Login } from '../container/root/Login';
+
 import { TradeQuery } from '../container/Business/TradeQuery';
 import { TradeRefund } from '../container/Business/TradeRefund';
 
@@ -12,6 +14,8 @@ import { menu } from '../constants/zh-cn';
 // 路由路径
 export const routerPath: any = {
   dashboard: '/dashboard',
+  login: '/login',
+
   business: '/business',
   businessTradeQuery: '/business/tradeQuery',
   businessTradeRefund: '/business/tradeQuery-refund',
@@ -28,6 +32,10 @@ export default [{
   path: routerPath.dashboard,
   title: menu.dashboard,
   component: Dashboard
+}, {
+  path: routerPath.login,
+  title: menu.login,
+  component: Login
 }, {
   path: routerPath.businessTradeQuery,
   title: menu.tradeQuery,
