@@ -2,3 +2,16 @@ body, h1, p {
   margin: 0;
   padding: 0;
 }
+
+// 按钮名称样式
+.buttonName {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+@media (max-width: 601px) {
+  .buttonName {
+    display: none;
+  }
+}
