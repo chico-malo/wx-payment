@@ -1,4 +1,15 @@
-module.exports = function (params) {
+const AUTH_API = {
+  development: 'http://test.accounts.shangfudata.com',
+  beta: '',
+  production: ''
+};
+
+module.exports = function ({htmlWebpackPlugin}) {
+  const {debug, env} = htmlWebpackPlugin.options;
+  const {PROFILE = 'development'} = env;
+
+  const api = debug ? `'http://' + location.hostname + ':' + location.port + '/api'` : `location.protocol + '//' + location.hostname + (location.port ? ':'+location.port : '') + '/api/v1'`;
+  const authApi = AUTH_API[PROFILE];
   return `
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -6,6 +17,13 @@ module.exports = function (params) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <title></title>
+  <script>
+    window.config = {
+      api: ${api},
+      authApi: '${authApi}',
+      clientId: 'innerSystem'
+    };
+  </script>
 </head>
 <body>
 <noscript>
