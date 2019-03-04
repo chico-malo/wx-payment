@@ -18,6 +18,7 @@ export const lang = {
 //  菜单
 export const menu = {
   dashboard: '仪表盘',
+  login: '登录商户服务平台',
   business: '业务管理',
   tradeQuery: '交易查询',
   tradeQueryRefund: '交易退款',
