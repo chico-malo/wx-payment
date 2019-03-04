@@ -17,3 +17,9 @@ export const navigator: any = create('navigator', {
 export const root: any = create('root', {
   start: ''
 });
+
+// session
+export const session: any = create('session', {
+  startQuery: '',
+  queryComplete: ''
+});
