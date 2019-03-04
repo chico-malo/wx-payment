@@ -6,6 +6,7 @@
 import * as React from 'react';
 import field from 'veigar/Form/field';
 import { TextFieldProps } from '@material-ui/core/TextField';
+import { Grid } from '@material-ui/core';
 import { TextField } from '@sitb/wbs/mui/TextField';
 import { autoBind } from '@sitb/wbs/autoBind';
 
@@ -38,19 +39,29 @@ export interface FieldProps {
 @field
 export class Field extends React.PureComponent<FieldProps, any> {
 
-  render() {
+  renderContent() {
     const {fields, variant} = this.props;
-    return (
-      <div>
-        {fields.map(({...props}, index) => {
-          const newProps: any = {variant, ...props};
-          return (
-            <TextField {...newProps}
-                       key={index}
-            />
-          );
-        })}
-      </div>
-    );
+    return fields.map(({...props}, index) => {
+      const newProps: any = {variant, ...props};
+      return (
+        <Grid item
+              xs={12}
+              sm={6}
+              md={4}
+              lg={2}
+              xl={2}
+              key={index}
+              container
+              justify="center"
+              style={{height: 85}}
+        >
+          <TextField {...newProps}/>
+        </Grid>
+      );
+    })
+  }
+
+  render() {
+    return this.renderContent();
   }
 }
