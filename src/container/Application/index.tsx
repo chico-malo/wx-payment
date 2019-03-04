@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '../../utils/withStyles';
 import { Menu } from './Menu';
 import { Content } from './Content';
+import { getActions } from '../../core/store';
 
 const styles: any = theme => ({
   root: {
@@ -24,6 +25,10 @@ export class Application extends React.PureComponent<any, any> {
   state = {
     menuOpen: true
   };
+
+  static componentWillMount(): void {
+    getActions().session.startQuery();
+  }
 
   /**
    * 打开菜单
