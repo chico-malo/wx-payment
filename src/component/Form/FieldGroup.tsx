@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import { Field, FieldProps, variantProps } from './Field';
+import { Field, FieldProps, layoutProps, variantProps } from './Field';
 import * as React from 'react';
 import Form from 'veigar/Form';
 
@@ -22,7 +22,8 @@ export interface FormGroupProps {
   /**
    * 表单layout
    */
-  unifiedVariant: variantProps;
+  unifiedVariant?: variantProps;
+  layout?: layoutProps;
   /**
    * 配置表单ref
    * @param node
@@ -33,7 +34,7 @@ export interface FormGroupProps {
 export class FieldGroup extends React.Component<FormGroupProps, any> {
 
   render() {
-    const {fieldGroups, formRef, unifiedVariant} = this.props;
+    const {fieldGroups, formRef, unifiedVariant, layout} = this.props;
     return (
       <Form ref={formRef}>
         {fieldGroups.map(({fieldGroup, title}, index) => (
@@ -44,6 +45,7 @@ export class FieldGroup extends React.Component<FormGroupProps, any> {
             <h1>{title}</h1>
             {fieldGroup.map(({...field}: any, idx) => (
               <Field variant={unifiedVariant}
+                     layout={layout}
                      key={idx}
                      {...field}
               />

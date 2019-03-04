@@ -21,15 +21,16 @@ export interface FieldItem {
   missText?: string;
 }
 
-// 表单layout类型
+// 表单variant类型
 export type variantProps = 'standard' | 'filled' | 'outlined';
-
+export type layoutProps = 'vertical' | 'horizontal';
 
 export type FieldCombination = FieldItem & TextFieldProps;
 
 export interface FieldProps {
   fields: Array<FieldCombination>;
   variant?: variantProps;
+  layout?: layoutProps;
 }
 
 /**
@@ -40,20 +41,32 @@ export interface FieldProps {
 export class Field extends React.PureComponent<FieldProps, any> {
 
   renderContent() {
-    const {fields, variant} = this.props;
+    const {fields, variant, layout = 'horizontal'} = this.props;
+    // 根据layout 设置栅格
+    let layoutProps: any = layout === 'horizontal' ? {
+      xs: 12,
+      sm: 12,
+      md: 4,
+      lg: 2,
+      xl: 2
+    } : {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12
+    };
+    // 根据layout 设置样式
+    let style: any = layout === 'horizontal' ? {} : {width: '100%'};
     return fields.map(({...props}, index) => {
-      const newProps: any = {variant, ...props};
+      const newProps: any = {variant, style, ...props};
       return (
         <Grid item
-              xs={12}
-              sm={6}
-              md={4}
-              lg={2}
-              xl={2}
               key={index}
               container
               justify="center"
               style={{height: 85}}
+              {...layoutProps}
         >
           <TextField {...newProps}/>
         </Grid>
