@@ -1,10 +1,12 @@
 import * as React from "react";
-import {lighten} from "@material-ui/core/styles/colorManipulator";
-import {IconButton, Toolbar, Tooltip, Typography} from "@material-ui/core";
+import { lighten } from "@material-ui/core/styles/colorManipulator";
+import { Grid, Toolbar, Typography } from "@material-ui/core";
 import classNames from 'classnames';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import {withStyles} from "../../utils/withStyles";
+import EditIcon from '@material-ui/icons/Edit';
+import LibraryAdd from '@material-ui/icons/LibraryAdd';
+import { withStyles } from "../../utils/withStyles";
+import { ButtonItem, TopButton } from '../Button/TopButton';
 
 /**
  * Copyright: Copyright (C) 2018 sitb.software,All Rights Reserved
@@ -19,6 +21,10 @@ export interface TableToolbar {
    * 选择数量
    */
   numSelected: number;
+  /**
+   * 表格标题
+   */
+  tableTitle: string;
 }
 
 const toolbarStyles = theme => ({
@@ -43,45 +49,65 @@ const toolbarStyles = theme => ({
   },
   title: {
     flex: '0 0 auto'
-  }
+  },
 });
 
 @withStyles(toolbarStyles)
 export class EnhancedTableToolbar extends React.PureComponent<TableToolbar, any> {
-  render() {
+
+  renderButton() {
     const {numSelected, classes} = this.props;
+    const updateConfig: Array<ButtonItem> = [{
+      name: '编辑',
+      icon: EditIcon
+    }, {
+      name: '删除',
+      icon: DeleteIcon
+    }];
+
+    const commonConfig: Array<ButtonItem> = [{
+      name: '新增',
+      icon: LibraryAdd
+    }];
+    const config = numSelected > 0 ? updateConfig : commonConfig;
+    return (
+      <Grid item
+            className={classes.actions}>
+        <Grid container
+              alignItems="center"
+        >
+          <TopButton config={config}/>
+        </Grid>
+      </Grid>
+    )
+  }
+
+  render() {
+    const {numSelected, classes, tableTitle} = this.props;
     return (
       <Toolbar className={classNames(classes.root, {
         [classes.highlight]: numSelected > 0
       })}
       >
-        <div className={classes.title}>
-          {numSelected > 0 ? (
-            <Typography color="inherit" variant="subtitle1">
-              {`${numSelected} 选择`}
-            </Typography>
-          ) : (
-            <Typography variant="h6" id="tableTitle">
-              xxx模块
-            </Typography>
-          )}
-        </div>
-        <div className={classes.spacer}/>
-        <div className={classes.actions}>
-          {numSelected > 0 ? (
-            <Tooltip title="Delete">
-              <IconButton aria-label="Delete">
-                <DeleteIcon/>
-              </IconButton>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Filter list">
-              <IconButton aria-label="Filter list">
-                <FilterListIcon/>
-              </IconButton>
-            </Tooltip>
-          )}
-        </div>
+        <Grid container
+              justify="space-between"
+              alignItems="center"
+        >
+          <Grid className={classes.title}
+                item
+          >
+            {numSelected > 0 ? (
+              <Typography color="inherit" variant="subtitle1">
+                {`${numSelected} 选择`}
+              </Typography>
+            ) : (
+              <Typography variant="h6" id="tableTitle">
+                {tableTitle}
+              </Typography>
+            )}
+          </Grid>
+          {this.renderButton()}
+        </Grid>
       </Toolbar>
     );
   }
