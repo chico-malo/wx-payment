@@ -5,27 +5,29 @@
  */
 import * as React from 'react';
 import { Button, Grid, Paper } from '@material-ui/core';
-import Form from 'veigar/Form';
 import { autoBind } from '@sitb/wbs/autoBind';
 import { withStyles } from '@sitb/wbs/mui/withStyles';
-import { Field, FieldProps, variantProps } from './Field';
-
-export interface FieldGroup {
-  fieldGroup: Array<FieldProps>
-  title?: string
-}
+import { variantProps } from './Field';
+import { FieldGroup, FieldGroupItemProps } from './FieldGroup';
 
 export interface FormProps {
   classes?: any;
   /**
    * 表单组配置
    */
-  fieldGroups: Array<FieldGroup>;
+  fieldGroups: Array<FieldGroupItemProps>;
   /**
    * 表单layout
    */
   unifiedVariant: variantProps;
+  /**
+   * 提交表单 函数
+   * @param values
+   */
   onSubmit?: (values) => void;
+  /**
+   * 重置表单 函数
+   */
   onReset?: () => void;
 }
 
@@ -60,6 +62,7 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
     const {onSubmit} = this.props;
     const values = this.form.getValue();
     onSubmit && onSubmit(values);
+    console.log('form =>', values);
   }
 
   /**
@@ -75,22 +78,10 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
     const {classes, fieldGroups, unifiedVariant} = this.props;
     return (
       <Paper className={classes.paper}>
-        <Form ref={node => this.form = node}>
-          {fieldGroups.map(({fieldGroup, title}, index) => (
-            <Grid key={index}
-                  container
-                  spacing={24}
-            >
-              <h1>{title}</h1>
-              {fieldGroup.map(({...field}: any, idx) => (
-                <Field variant={unifiedVariant}
-                       key={idx}
-                       {...field}
-                />
-              ))}
-            </Grid>
-          ))}
-        </Form>
+        <FieldGroup fieldGroups={fieldGroups}
+                    unifiedVariant={unifiedVariant}
+                    formRef={node => this.form = node}
+        />
         <Grid container
               justify="flex-end"
         >

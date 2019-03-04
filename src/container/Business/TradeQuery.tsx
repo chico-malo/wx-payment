@@ -7,8 +7,9 @@ import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
 import { TableConstant } from "../../component/Table";
 import { ColumnsItem } from '../../component/Table/EnhancedTableHead';
-import { FieldGroup, FormContainer } from '../../component/Form';
+import { FormContainer } from '../../component/Form';
 import { lang } from '../../constants/zh-cn';
+import { FieldGroupItemProps } from '../../component/Form/FieldGroup';
 
 const rows: Array<ColumnsItem> = [
   {id: 'name', align: 'left', disablePadding: false, label: '姓名'},
@@ -34,7 +35,7 @@ const dataResource = [{
 @autoBind
 export class TradeQuery extends React.Component<any, any> {
   render() {
-    const fieldGroups: Array<FieldGroup> = [{
+    const fieldGroups: Array<FieldGroupItemProps> = [{
       fieldGroup: [{
         fields: [{
           label: lang.merchant,
