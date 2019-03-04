@@ -1,5 +1,6 @@
 import * as navigator from './navigator';
 import * as root from './root';
+import * as session from './session';
 
 
 /**
@@ -7,5 +8,6 @@ import * as root from './root';
  */
 export {
   navigator,
-  root
+  root,
+  session
 }
