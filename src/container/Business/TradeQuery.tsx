@@ -65,6 +65,7 @@ export class TradeQuery extends React.Component<any, any> {
         <FormContainer fieldGroups={fieldGroups}/>
         <TableConstant dataResource={dataResource}
                        columns={rows}
+                       tableTitle="交易查询"
                        selection={{type: 'checkbox'}}
         />
       </React.Fragment>
