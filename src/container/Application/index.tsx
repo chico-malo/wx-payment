@@ -51,7 +51,7 @@ export class Application extends React.PureComponent<any, any> {
         <Menu menuOpen={menuOpen}
               handleMenuClose={this.handleMenuClose}
         />
-        <Content/>
+        <Content menuOpen={menuOpen}/>
       </div>
     )
   }
