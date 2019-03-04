@@ -5,9 +5,9 @@
  */
 import * as React from 'react';
 import { withStyles } from '../../utils/withStyles';
-import routes, { routerPath } from '../../core/router.config';
+import routes from '../../core/router.config';
 import { getState } from '../../core/store';
-import { HashRouter, Redirect, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
 function createRender(route) {
   return props => {
@@ -41,10 +41,7 @@ export class Content extends React.PureComponent<any, any> {
       >
         <HashRouter>
           <React.Fragment>
-            <Route exactpx
-                   path="/"
-                   render={() => (<Redirect to={routerPath.dashboard}/>)}
-            />
+            <Route exactpx/>
             {routes.map((route: any, index) => (
               <Route path={route.path}
                      render={createRender(route)}
