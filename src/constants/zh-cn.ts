@@ -7,6 +7,7 @@
 export const lang = {
   previous: '上一页',
   next: '下一页',
+  labelRowsPerPage: '每页条数',
   merchant: '所属商户',
   time: '时间节点',
   tradeState: '交易状态',
