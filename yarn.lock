@@ -6152,9 +6152,10 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
-veigar@^1.0.0-Alpha.35:
-  version "1.0.0-Alpha.35"
-  resolved "http://registry.npm.taobao.org/veigar/download/veigar-1.0.0-Alpha.35.tgz#909e15270e899b089dbbccee0c58c6aa9665ac1b"
+veigar@^1.0.0-Alpha.36:
+  version "1.0.0-Alpha.36"
+  resolved "https://registry.yarnpkg.com/veigar/-/veigar-1.0.0-Alpha.36.tgz#74713918059935d6a00061e8950f604c65cfbebf"
+  integrity sha512-DuDoKSW4EQWGQ50sdaCDjlIrIlj3vCToS9affM9pV6k55DErC6TGpIIRJbZzU0s92teDa8Qt6dlJ1hedUDES9g==
   dependencies:
     classnames "^2.2.5"
     object-path "^0.11.4"

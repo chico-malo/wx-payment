@@ -11,7 +11,7 @@
   "devServer": {
     "host": "0.0.0.0",
     "port": 3000,
-    "api": "http://localhost:8080"
+    "api": "http://192.168.88.223:6900"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
@@ -30,7 +30,7 @@
     "redux": "^4.0.1",
     "redux-observable": "^1.0.0",
     "rxjs": "^6.4.0",
-    "veigar": "^1.0.0-Alpha.35",
+    "veigar": "^1.0.0-Alpha.36",
     "whatwg-fetch": "^3.0.0"
   }
 }
