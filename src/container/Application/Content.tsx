@@ -34,12 +34,14 @@ const styles: any = theme => ({
 @withStyles(styles)
 export class Content extends React.PureComponent<any, any> {
   render() {
-    const {classes} = this.props;
+    const {classes, menuOpen} = this.props;
     return (
-      <main className={classes.content}>
+      <main className={classes.content}
+            style={{width: `calc(100% - ${menuOpen && '240px' || '75px'}`}}
+      >
         <HashRouter>
           <React.Fragment>
-            <Route exact
+            <Route exactpx
                    path="/"
                    render={() => (<Redirect to={routerPath.dashboard}/>)}
             />
