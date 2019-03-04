@@ -8,8 +8,9 @@ import { Button, Grid, Paper, Typography } from '@material-ui/core';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 
 import { withStyles } from '../../utils/withStyles';
-import { FieldGroup } from '../../component/Form/FieldGroup';
+import { FieldGroup, FieldGroupItemProps } from '../../component/Form/FieldGroup';
 import { lang } from '../../constants/zh-cn';
+import { autoBind } from '@sitb/wbs/autoBind';
 
 
 const styles: any = theme => ({
@@ -17,12 +18,12 @@ const styles: any = theme => ({
     height: '100vh'
   },
   paper: {
-    padding: 24,
-    textAlign: 'center'
+    padding: 24
   },
   content: {
     marginTop: 12,
-    marginBottom: 50
+    marginBottom: 50,
+    textAlign: 'center'
   },
   binding: {
     width: '100%',
@@ -32,19 +33,37 @@ const styles: any = theme => ({
 });
 
 @withStyles(styles)
+@autoBind
 export class Login extends React.Component<any, any> {
   form;
 
+  handleSend() {
+    const errorFields = this.form.validate();
+    if (errorFields) {
+      return;
+    }
+    const values = this.form.getValue();
+    console.log(values);
+  }
   render() {
     const {classes} = this.props;
-    const fieldConfig = [{
+    const fieldConfig: Array<FieldGroupItemProps> = [{
       fieldGroup: [{
         fields: [{
           label: lang.merchantNo,
           name: 'merchantNo'
         }, {
           label: lang.verifiedCode,
-          name: 'verifiedCode'
+          name: 'verifiedCode',
+          afterElement: (
+            <Button variant="contained"
+                    color="primary"
+                    style={{height: 50}}
+                    onClick={this.handleSend}
+            >
+              {'发送验证码'}
+            </Button>
+          )
         }]
       }]
     }];
@@ -57,7 +76,7 @@ export class Login extends React.Component<any, any> {
       >
         <Paper className={classes.paper}>
           <Grid className={classes.content}>
-            <AccountIcon fontSize="large"/>
+            <AccountIcon style={{fontSize: 80}}/>
             <Typography variant="h6" id="tableTitle">
               {'商户服务平台-绑定商户'}
             </Typography>

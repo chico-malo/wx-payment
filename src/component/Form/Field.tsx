@@ -19,6 +19,10 @@ export interface FieldItem {
    *  表单错误信息提示
    */
   missText?: string;
+  /**
+   * 添加afterDom
+   */
+  afterElement?: any;
 }
 
 // 表单variant类型
@@ -42,33 +46,44 @@ export class Field extends React.PureComponent<FieldProps, any> {
 
   renderContent() {
     const {fields, variant, layout = 'horizontal'} = this.props;
+    // 根据layout 设置样式
+    let fieldStyle: any = {};
     // 根据layout 设置栅格
-    let layoutProps: any = layout === 'horizontal' ? {
+    let layoutProps: any = {
       xs: 12,
       sm: 12,
       md: 4,
       lg: 2,
       xl: 2
-    } : {
-      xs: 12,
-      sm: 12,
-      md: 12,
-      lg: 12,
-      xl: 12
     };
+    // 设置垂直layout 设置样式 栅格
+    if (layout === 'vertical') {
+      layoutProps = {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12
+      };
+      fieldStyle = {
+        width: '100%'
+      }
+    }
     // 根据layout 设置样式
-    let style: any = layout === 'horizontal' ? {} : {width: '100%'};
-    return fields.map(({...props}, index) => {
-      const newProps: any = {variant, style, ...props};
+    return fields.map(({afterElement, ...props}, index) => {
+      fieldStyle = afterElement && {width: '70%'} || fieldStyle;
+      const GridJustify = afterElement && 'space-between' || 'center';
+      const fieldProps: any = {variant, style: fieldStyle, ...props};
       return (
         <Grid item
               key={index}
               container
-              justify="center"
+              justify={GridJustify}
               style={{height: 85}}
               {...layoutProps}
         >
-          <TextField {...newProps}/>
+          <TextField {...fieldProps}/>
+          {afterElement && afterElement}
         </Grid>
       );
     })

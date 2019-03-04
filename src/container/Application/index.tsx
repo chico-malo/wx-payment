@@ -5,9 +5,9 @@
  */
 import * as React from 'react';
 import { getActions } from '../../core/store';
-import { Application } from './Application';
+// import { Application } from './Application';
 
-// import { Login } from '../root/Login';
+import { Login } from '../root/Login';
 
 export class Index extends React.Component<any, any> {
 
@@ -16,6 +16,7 @@ export class Index extends React.Component<any, any> {
   }
 
   render() {
-    return <Application/>;
+    // return <Application/>;
+    return <Login/>;
   }
 }
