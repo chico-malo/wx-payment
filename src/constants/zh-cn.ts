@@ -31,3 +31,12 @@ export const menu = {
   reconciliationBillDown: '账单下载',
   reconciliationServiceBill: '服务费账单'
 };
+
+// 后台返回错误的错误信息
+export const requestMsg = {
+  UNKNOWN: '我也不知道发生了什么:(',
+  '0000': '请求处理成功',
+  login: {
+    '3000': '商户号无效'
+  }
+};

@@ -9,6 +9,7 @@ import { filter, switchMap, tap } from 'rxjs/operators';
 import { execute } from '../core/Request';
 import URL from '../constants/URL';
 import { SessionServices } from '../core/SessionServices';
+import RequestToast from '../core/RequestToast';
 
 /**
  * 获取用户信息
@@ -40,6 +41,10 @@ export function startSaveToken(action$) {
   );
 }
 
+/**
+ * 发送绑定验证码
+ * @param action$
+ */
 export function startSend(action$) {
   return action$.pipe(
     ofType(types.startSend),
@@ -47,5 +52,18 @@ export function startSend(action$) {
       url: `${URL.send}?merchantNo=${payload}`,
       type: types.sendComplete
     })),
-    tap((payload) => console.log(payload)))
+    tap(RequestToast({prefix: 'login', errorTip: true})))
+}
+
+export function startBind(action$) {
+  return action$.pipe(
+    ofType(types.startBind),
+    switchMap(({payload}) => execute({
+      url: URL.session,
+      method: 'POST',
+      body: JSON.stringify(payload),
+      type: types.bindComplete
+    })),
+    tap(payload => console.log(payload))
+  )
 }
