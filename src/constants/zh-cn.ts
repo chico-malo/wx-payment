@@ -16,7 +16,15 @@ export const lang = {
   businessType: '业务类型',
 
   merchantNo: '商户号',
-  verifiedCode: '验证码'
+  verifiedCode: '验证码',
+  fundsSettlement: {
+    status: '结算状态',
+    startAmount: '结算金额区间开始',
+    endAmount: '结算金额区间结束',
+    auditNumber: '结算流水号',
+    startAt: '结算开始时间',
+    endAt: '结算结束时间'
+  }
 };
 //  菜单
 export const menu = {
