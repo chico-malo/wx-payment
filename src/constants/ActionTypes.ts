@@ -20,11 +20,23 @@ export const root: any = create('root', {
 
 // session
 export const session: any = create('session', {
+  /**
+   * 获取用户信息
+   */
   startQuery: '',
   queryComplete: '',
-
+  /**
+   * 存储token
+   */
   startSaveToken: '',
-
+  /**
+   * 发送验证码
+   */
   startSend: '',
-  sendComplete: ''
+  sendComplete: '',
+  /**
+   * 绑定
+   */
+  startBind: '',
+  bindComplete: ''
 });
