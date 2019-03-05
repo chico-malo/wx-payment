@@ -8,7 +8,6 @@ import { getActions } from '../../core/store';
 import { getQueryArgs } from '@sitb/wbs/utils/HttpUtil';
 
 import { Login } from '../root/Login';
-import { SessionServices } from '../../core/SessionServices';
 
 export class Index extends React.Component<any, any> {
 
@@ -33,9 +32,7 @@ export class Index extends React.Component<any, any> {
       location.href = location.origin;
     }
     // 如果浏览器没有缓存token，再加载当前用户信息
-    if (!SessionServices.getAccessToken()) {
-      getActions().session.startQuery();
-    }
+    getActions().session.startQuery();
   }
 
   render() {
