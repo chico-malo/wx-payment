@@ -8,6 +8,8 @@ import { getActions } from '../../core/store';
 import { getQueryArgs } from '@sitb/wbs/utils/HttpUtil';
 
 import { Login } from '../root/Login';
+import { SessionServices } from '../../core/SessionServices';
+import { Application } from './Application';
 
 export class Index extends React.Component<any, any> {
 
@@ -36,7 +38,6 @@ export class Index extends React.Component<any, any> {
   }
 
   render() {
-    // return <Application/>;
-    return <Login/>;
+    return (SessionServices.getAccessToken() && SessionServices.getUser().length > 0) && <Application/> || <Login/>;
   }
 }
