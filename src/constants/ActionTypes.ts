@@ -7,6 +7,12 @@ function create<T extends { [key: string]: string }>(type: string, actions: T): 
   return result;
 }
 
+// 结算类型
+export const fundsSettlement: any = create('funds-settlement', {
+  startQuery: '',
+  queryComplete: ''
+});
+
 export const navigator: any = create('navigator', {
   navigate: '',
   back: '',
