@@ -21,7 +21,11 @@ export function startQuery(action$) {
     switchMap(() => execute({
       url: `${URL.session}/me`,
       type: types.queryComplete
-    })))
+    })),
+    // 保存操作员信息
+    tap(({success, payload}) => {
+      success && SessionServices.saveUser(payload);
+    }));
 }
 
 /**
@@ -64,6 +68,7 @@ export function startBind(action$) {
       body: JSON.stringify(payload),
       type: types.bindComplete
     })),
-    tap(payload => console.log(payload))
+    tap(RequestToast()),
+    tap(({success, status}) => (success && status === '0000') && location.reload())
   )
 }
