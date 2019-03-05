@@ -4,10 +4,11 @@
  * date: 2019/2/21
  */
 import * as React from 'react';
+import { HashRouter, Route, Redirect } from 'react-router-dom';
+
 import { withStyles } from '../../utils/withStyles';
-import routes from '../../core/router.config';
+import routes, { routerPath } from '../../core/router.config';
 import { getState } from '../../core/store';
-import { HashRouter, Route } from 'react-router-dom';
 
 function createRender(route) {
   return props => {
@@ -41,7 +42,10 @@ export class Content extends React.PureComponent<any, any> {
       >
         <HashRouter>
           <React.Fragment>
-            <Route exactpx/>
+            <Route exact
+                   path="/"
+                   render={() => (<Redirect to={routerPath.dashboard}/>)}
+            />
             {routes.map((route: any, index) => (
               <Route path={route.path}
                      render={createRender(route)}
