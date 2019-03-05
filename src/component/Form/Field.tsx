@@ -9,6 +9,7 @@ import { TextFieldProps } from '@material-ui/core/TextField';
 import { Grid } from '@material-ui/core';
 import { TextField } from '@sitb/wbs/mui/TextField';
 import { autoBind } from '@sitb/wbs/autoBind';
+import { Select } from '../Select';
 
 export interface FieldItem {
   /**
@@ -23,6 +24,7 @@ export interface FieldItem {
    * 添加afterDom
    */
   afterElement?: any;
+  children?: any;
 }
 
 // 表单variant类型
@@ -44,10 +46,18 @@ export interface FieldProps {
 @field
 export class Field extends React.PureComponent<FieldProps, any> {
 
+  filterField(type, props) {
+    if (type === 'select') {
+      console.log(props);
+      return <Select {...props}/>
+    }
+    return <TextField {...props}/>
+  }
+
   renderContent() {
     const {fields, variant, layout = 'horizontal'} = this.props;
     // 根据layout 设置样式
-    let fieldStyle: any = {};
+    let fieldStyle: any = {width: '100%'};
     // 根据layout 设置栅格
     let layoutProps: any = {
       xs: 12,
@@ -65,12 +75,9 @@ export class Field extends React.PureComponent<FieldProps, any> {
         lg: 12,
         xl: 12
       };
-      fieldStyle = {
-        width: '100%'
-      }
     }
     // 根据layout 设置样式
-    return fields.map(({afterElement, ...props}, index) => {
+    return fields.map(({afterElement, type, ...props}, index) => {
       fieldStyle = afterElement && {width: '70%'} || fieldStyle;
       const GridJustify = afterElement && 'space-between' || 'center';
       const fieldProps: any = {variant, style: fieldStyle, ...props};
@@ -79,10 +86,12 @@ export class Field extends React.PureComponent<FieldProps, any> {
               key={index}
               container
               justify={GridJustify}
-              style={{height: 85}}
+              style={{height: 85, width: '100%'}}
               {...layoutProps}
         >
-          <TextField {...fieldProps}/>
+          {
+            this.filterField(type, fieldProps)
+          }
           {afterElement && afterElement}
         </Grid>
       );
