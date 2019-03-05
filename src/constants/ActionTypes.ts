@@ -21,5 +21,10 @@ export const root: any = create('root', {
 // session
 export const session: any = create('session', {
   startQuery: '',
-  queryComplete: ''
+  queryComplete: '',
+
+  startSaveToken: '',
+
+  startSend: '',
+  sendComplete: ''
 });

@@ -11,6 +11,7 @@ import { withStyles } from '../../utils/withStyles';
 import { FieldGroup, FieldGroupItemProps } from '../../component/Form/FieldGroup';
 import { lang } from '../../constants/zh-cn';
 import { autoBind } from '@sitb/wbs/autoBind';
+import { getActions } from '../../core/store';
 
 
 const styles: any = theme => ({
@@ -43,7 +44,8 @@ export class Login extends React.Component<any, any> {
       return;
     }
     const values = this.form.getValue();
-    console.log(values);
+    const {merchantNo} = values;
+    getActions().session.startSend(merchantNo);
   }
   render() {
     const {classes} = this.props;
@@ -51,7 +53,9 @@ export class Login extends React.Component<any, any> {
       fieldGroup: [{
         fields: [{
           label: lang.merchantNo,
-          name: 'merchantNo'
+          name: 'merchantNo',
+          required: true,
+          missText: '请输入您的商户号'
         }, {
           label: lang.verifiedCode,
           name: 'verifiedCode',

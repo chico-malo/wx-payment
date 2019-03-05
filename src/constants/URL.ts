@@ -7,6 +7,7 @@ const {api, authApi} = (global as any).config;
 
 export default {
   session: `${api}/session`,
+  send: `${api}/merchant-check-value`,
 
   login: `${authApi}/oauth/authorize`
 }
