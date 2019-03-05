@@ -9,7 +9,6 @@ import { SessionServices } from '../core/SessionServices';
 
 export default () => next => action => {
   const {status} = action;
-  console.log(action);
   // 1000状态码
   if (status === '1000') {
     console.log('用户授权不正确');
