@@ -38,17 +38,44 @@ const styles: any = theme => ({
 export class Login extends React.Component<any, any> {
   form;
 
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      countDown: 60
+    };
+  }
+
   handleSend() {
     const errorFields = this.form.validate();
     if (errorFields) {
       return;
     }
+
+
+    // 倒计时
+    let time = setInterval(() => {
+      // const {processing} = this.props;
+      // processing永远都为true，只有发送验证码失败才为false
+      if (this.state.countDown === 0) {
+        // 解除定时器，重置倒计时
+        clearInterval(time);
+        this.setState({
+          countDown: 60
+        });
+      } else {
+        this.setState({
+          countDown: this.state.countDown - 1
+        });
+      }
+    }, 1000);
+
     const values = this.form.getValue();
     const {merchantNo} = values;
     getActions().session.startSend(merchantNo);
   }
   render() {
     const {classes} = this.props;
+    const {countDown} = this.state;
     const fieldConfig: Array<FieldGroupItemProps> = [{
       fieldGroup: [{
         fields: [{
@@ -62,10 +89,11 @@ export class Login extends React.Component<any, any> {
           afterElement: (
             <Button variant="contained"
                     color="primary"
-                    style={{height: 50}}
+                    style={{height: 50, width: '25%'}}
                     onClick={this.handleSend}
+                    disabled={countDown !== 60}
             >
-              {'发送验证码'}
+              {countDown !== 60 && countDown || '发送验证码'}
             </Button>
           )
         }]
