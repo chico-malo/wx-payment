@@ -5,7 +5,7 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Grid, Paper, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Grid, Paper, Typography } from '@material-ui/core';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 
 import { withStyles } from '../../utils/withStyles';
@@ -37,11 +37,16 @@ const styles: any = theme => ({
   sendBtn: {
     height: 50,
     width: '30%'
+  },
+  loading: {
+    color: '#6798e5',
+    animationDuration: '550ms'
   }
 });
 
 @connect(({session}) => ({
-  countDownProcessing: session.countDownProcessing
+  countDownProcessing: session.countDownProcessing,
+  loginProcessing: session.loginProcessing
 }))
 @withStyles(styles)
 @autoBind
@@ -96,7 +101,7 @@ export class Login extends React.Component<any, any> {
   }
 
   render() {
-    const {classes} = this.props;
+    const {classes, loginProcessing} = this.props;
     const {countDown} = this.state;
     const fieldConfig: Array<FieldGroupItemProps> = [{
       fieldGroup: [{
@@ -146,7 +151,16 @@ export class Login extends React.Component<any, any> {
                   className={classes.binding}
                   onClick={() => this.handleSubmit('bind')}
           >
-            {'绑定'}
+            {
+              loginProcessing && (
+                <CircularProgress variant="indeterminate"
+                                  disableShrink
+                                  className={classes.loading}
+                                  size={24}
+                                  thickness={4}
+                />
+              ) || '绑定'
+            }
           </Button>
         </Paper>
       </Grid>
