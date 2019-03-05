@@ -7,7 +7,8 @@ import compose from './composeReducer';
 import { session as types } from '../constants/ActionTypes';
 
 const DEFAULT_STATE = {
-  countDownProcessing: true
+  countDownProcessing: true,
+  loginProcessing: false
 };
 
 export default compose((state = DEFAULT_STATE, action) => {
@@ -22,6 +23,19 @@ export default compose((state = DEFAULT_STATE, action) => {
       return {
         ...state,
         countDownProcessing: success
+      };
+    }
+    // 开始绑定
+    case types.startBind: {
+      return {
+        ...state,
+        loginProcessing: true
+      };
+    }
+    case types.bindComplete: {
+      return {
+        ...state,
+        loginProcessing: false
       };
     }
     default:
