@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { Field, FieldProps, layoutProps, variantProps } from './Field';
 import * as React from 'react';
-import Form from 'veigar/Form';
 
 /**
  * Copyright: Copyright (C) 2018 sitb.software,All Rights Reserved
@@ -34,9 +33,9 @@ export interface FormGroupProps {
 export class FieldGroup extends React.Component<FormGroupProps, any> {
 
   render() {
-    const {fieldGroups, formRef, unifiedVariant, layout} = this.props;
+    const {fieldGroups, unifiedVariant, layout} = this.props;
     return (
-      <Form ref={formRef}>
+      <Grid>
         {fieldGroups.map(({fieldGroup, title}, index) => (
           <Grid key={index}
                 container
@@ -52,7 +51,7 @@ export class FieldGroup extends React.Component<FormGroupProps, any> {
             ))}
           </Grid>
         ))}
-      </Form>
+      </Grid>
     )
   }
 }

@@ -4,12 +4,14 @@
  * date: 2019-02-26
  */
 import * as React from 'react';
-import field from 'veigar/Form/field';
 import { TextFieldProps } from '@material-ui/core/TextField';
 import { Grid } from '@material-ui/core';
-import { TextField } from '@sitb/wbs/mui/TextField';
 import { autoBind } from '@sitb/wbs/autoBind';
-import { Select } from '../Select';
+import { Select } from './FormItem/Select';
+import { Field as ReduxField } from 'redux-form'
+import { TextField } from './FormItem/TextField';
+import { PickerDate } from './FormItem/PickerDate';
+import { PickerTime } from './FormItem/PickerTime';
 
 export interface FieldItem {
   /**
@@ -25,6 +27,7 @@ export interface FieldItem {
    */
   afterElement?: any;
   children?: any;
+  options?: any
 }
 
 // 表单variant类型
@@ -39,19 +42,28 @@ export interface FieldProps {
   layout?: layoutProps;
 }
 
+const renderComponent = {
+  select: Select,
+  text: TextField,
+  date: PickerDate,
+  time: PickerTime
+};
+
 /**
  * @author 田尘殇Sean(sean.snow@live.com) create at 2018/5/4
  */
 @autoBind
-@field
 export class Field extends React.PureComponent<FieldProps, any> {
 
-  filterField(type, props) {
-    if (type === 'select') {
-      console.log(props);
-      return <Select {...props}/>
-    }
-    return <TextField {...props}/>
+  filterField(props) {
+    const {type, name, ...other} = props;
+    const component = type ? renderComponent[type] : renderComponent.text;
+    return (
+      <ReduxField name={name}
+                  component={component}
+                  props={...other}
+      />
+    )
   }
 
   renderContent() {
@@ -77,7 +89,7 @@ export class Field extends React.PureComponent<FieldProps, any> {
       };
     }
     // 根据layout 设置样式
-    return fields.map(({afterElement, type, ...props}, index) => {
+    return fields.map(({afterElement, ...props}, index) => {
       fieldStyle = afterElement && {width: '70%'} || fieldStyle;
       const GridJustify = afterElement && 'space-between' || 'center';
       const fieldProps: any = {variant, style: fieldStyle, ...props};
@@ -90,7 +102,7 @@ export class Field extends React.PureComponent<FieldProps, any> {
               {...layoutProps}
         >
           {
-            this.filterField(type, fieldProps)
+            this.filterField(fieldProps)
           }
           {afterElement && afterElement}
         </Grid>

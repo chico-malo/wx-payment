@@ -7,6 +7,7 @@ import bootstrap from 'veigar/bootstrap';
 
 import { Provider } from 'react-redux';
 import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
+import { reducer as formReducer } from 'redux-form'
 
 import createHashHistory from 'history/createHashHistory';
 
@@ -21,7 +22,8 @@ const hashHistory = createHashHistory();
 const historyMiddleware = routerMiddleware(hashHistory);
 
 const store = createAppStore({
-    router: connectRouter(hashHistory)
+    router: connectRouter(hashHistory),
+    form: formReducer
   },
   {},
   [historyMiddleware]
