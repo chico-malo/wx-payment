@@ -9,17 +9,26 @@ import { FormContainer } from '../../component/Form';
 import { TableConstant } from '../../component/Table';
 import { settleSearch } from './config/Search';
 import { settleColumns } from './config/Columns';
+import { autoBind } from '@sitb/wbs/autoBind';
+
+
 
 @connect(({fundsSettlement}) => ({
   content: fundsSettlement.content,
   processing: fundsSettlement.processing
 }))
+@autoBind
 export class FundsSettlement extends React.PureComponent<any, any> {
+  onSubmit(e) {
+    console.log(e);
+  }
   render() {
     const {content} = this.props;
     return (
       <React.Fragment>
-        <FormContainer fieldGroups={settleSearch}/>
+        <FormContainer fieldGroups={settleSearch}
+                       onSubmit={this.onSubmit}
+        />
         <TableConstant dataResource={content}
                        columns={settleColumns}
                        tableTitle="交易查询"
