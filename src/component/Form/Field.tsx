@@ -27,7 +27,6 @@ export interface FieldItem {
    * 添加afterDom
    */
   afterElement?: any;
-  children?: any;
   options?: any
 }
 
@@ -41,6 +40,7 @@ export interface FieldProps {
   fields: Array<FieldCombination>;
   variant?: variantProps;
   layout?: layoutProps;
+  handleSubmit?: any;
 }
 
 const renderComponent = {
@@ -51,9 +51,6 @@ const renderComponent = {
   time: PickerTime
 };
 
-/**
- * @author 田尘殇Sean(sean.snow@live.com) create at 2018/5/4
- */
 @autoBind
 export class Field extends React.PureComponent<FieldProps, any> {
 
@@ -69,7 +66,7 @@ export class Field extends React.PureComponent<FieldProps, any> {
   }
 
   renderContent() {
-    const {fields, variant, layout = 'horizontal'} = this.props;
+    const {fields, variant, layout = 'horizontal', handleSubmit} = this.props;
     // 根据layout 设置样式
     let fieldStyle: any = {width: '100%'};
     // 根据layout 设置栅格
@@ -92,7 +89,7 @@ export class Field extends React.PureComponent<FieldProps, any> {
     }
     // 根据layout 设置样式
     return fields.map(({afterElement, ...props}, index) => {
-      fieldStyle = afterElement && {width: '70%'} || fieldStyle;
+      fieldStyle = afterElement && {width: '60%'} || fieldStyle;
       const GridJustify = afterElement && 'space-between' || 'center';
       const fieldProps: any = {variant, style: fieldStyle, ...props};
       return (
@@ -106,7 +103,7 @@ export class Field extends React.PureComponent<FieldProps, any> {
           {
             this.filterField(fieldProps)
           }
-          {afterElement && afterElement}
+          {afterElement && afterElement(handleSubmit)}
         </Grid>
       );
     })
