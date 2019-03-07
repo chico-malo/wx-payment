@@ -13,15 +13,23 @@ export const lang = {
   tradeState: '交易状态',
   amount: '金额范围',
   audioNumber: '交易流水号',
+  totalFee: '全部手续费',
   businessType: '业务类型',
+  createAt: '创建时间',
+  updateAt: '修改时间',
+  remark: '备注',
 
   merchantNo: '商户号',
   verifiedCode: '验证码',
   fundsSettlement: {
+    realSettleAmount: '出款金额',
+    settleCycle: '结算周期',
+    totalAmount: '交易金额',
     status: '结算状态',
     startAmount: '结算金额区间开始',
     endAmount: '结算金额区间结束',
     auditNumber: '结算流水号',
+    settleAt: '结算时间',
     startAt: '结算开始时间',
     endAt: '结算结束时间'
   }
@@ -46,5 +54,8 @@ export const requestMsg = {
   '0000': '请求处理成功',
   login: {
     '3000': '商户号无效'
+  },
+  fundsSettlement: {
+    '3000': '请选择商户号进行搜索'
   }
 };
