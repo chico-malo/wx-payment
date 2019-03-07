@@ -19,6 +19,23 @@ export const lang = {
   updateAt: '修改时间',
   remark: '备注',
 
+  untreated: '未处理',
+  success: '成功',
+  failure: '失败',
+  processing: '处理中',
+  exception: '驳回',
+
+  d0: 'D0',
+  t0: 'T+0',
+  t1: 'T+1',
+  t7: 'T+7',
+  t15: 'T+15',
+  t30: 'T+30',
+  t90: 'T+90',
+  t180: 'T+180',
+  t365: 'T+365',
+  manual: '下游手动结算',
+
   merchantNo: '商户号',
   verifiedCode: '验证码',
   fundsSettlement: {
