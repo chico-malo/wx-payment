@@ -3,12 +3,12 @@
  * author: yangyao(873241789@qq.com)
  * date: 2019-03-05
  */
-import { FieldGroupItemProps } from '../../../component/Form/FieldGroup';
 import { lang } from '../../../constants/zh-cn';
+import { FieldGroupItemProps } from '../../../component/Form';
 
 // 结算模块 搜索表单
 export const settleSearch: Array<FieldGroupItemProps> = [{
-  fieldGroup: [{
+  group: [{
     fields: [{
       label: lang.merchantNo,
       name: 'merchantNo',

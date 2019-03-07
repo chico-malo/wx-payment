@@ -5,16 +5,15 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, CircularProgress, Grid, Paper, Typography } from '@material-ui/core';
+import { Button, Grid, Paper, Typography } from '@material-ui/core';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 
 import { withStyles } from '../../utils/withStyles';
-import { FieldGroup, FieldGroupItemProps } from '../../component/Form/FieldGroup';
 import { lang } from '../../constants/zh-cn';
 import { autoBind } from '@sitb/wbs/autoBind';
 import { getActions } from '../../core/store';
 import { warn } from '@sitb/wbs/mui/Toast';
-
+import { FieldGroupItemProps, FormContainer } from '../../component/Form';
 
 const styles: any = theme => ({
   root: {
@@ -35,8 +34,8 @@ const styles: any = theme => ({
     marginBottom: 24
   },
   sendBtn: {
-    height: 50,
-    width: '30%'
+    height: 45,
+    width: '35%'
   },
   loading: {
     color: '#6798e5',
@@ -51,8 +50,6 @@ const styles: any = theme => ({
 @withStyles(styles)
 @autoBind
 export class Login extends React.Component<any, any> {
-  form;
-
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -63,13 +60,9 @@ export class Login extends React.Component<any, any> {
   /**
    * 表单提交
    */
-  handleSubmit(type: 'bind' | 'send') {
-    const errorFields = this.form.validate();
-    if (errorFields) {
-      warn(errorFields.miss.merchantNo);
-      return;
-    }
-    const values = this.form.getValue();
+  handleSubmit(e, type) {
+    console.log(e);
+    const values: any = {};
     const {merchantNo, verifiedCode} = values;
 
     if (type === 'send') {
@@ -100,11 +93,15 @@ export class Login extends React.Component<any, any> {
     }
   }
 
+  renderSubmit(e) {
+    console.log(e);
+  }
+
   render() {
-    const {classes, loginProcessing} = this.props;
+    const {classes} = this.props;
     const {countDown} = this.state;
     const fieldConfig: Array<FieldGroupItemProps> = [{
-      fieldGroup: [{
+      group: [{
         fields: [{
           label: lang.merchantNo,
           name: 'merchantNo',
@@ -113,11 +110,11 @@ export class Login extends React.Component<any, any> {
         }, {
           label: lang.verifiedCode,
           name: 'verifiedCode',
-          afterElement: (
+          afterElement: (handleSubmit) => (
             <Button variant="contained"
                     color="primary"
                     className={classes.sendBtn}
-                    onClick={() => this.handleSubmit('send')}
+                    onClick={handleSubmit(this.handleSubmit)}
                     disabled={countDown !== 60}
             >
               {countDown !== 60 && countDown || '发送验证码'}
@@ -140,28 +137,12 @@ export class Login extends React.Component<any, any> {
               {'商户服务平台-绑定商户'}
             </Typography>
           </Grid>
-          <FieldGroup fieldGroups={fieldConfig}
-                      unifiedVariant='standard'
-                      layout="vertical"
-                      formRef={node => this.form = node}
+          <FormContainer fieldGroups={fieldConfig}
+                         unifiedVariant='standard'
+                         onSubmit={this.renderSubmit}
+                         layout="vertical"
+                         formContainerProps={{elevation: 0}}
           />
-          <Button variant="contained"
-                  color="primary"
-                  size="large"
-                  className={classes.binding}
-                  onClick={() => this.handleSubmit('bind')}
-          >
-            {
-              loginProcessing && (
-                <CircularProgress variant="indeterminate"
-                                  disableShrink
-                                  className={classes.loading}
-                                  size={24}
-                                  thickness={4}
-                />
-              ) || '绑定'
-            }
-          </Button>
         </Paper>
       </Grid>
     )

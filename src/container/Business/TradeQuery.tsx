@@ -7,9 +7,8 @@ import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
 import { TableConstant } from "../../component/Table";
 import { ColumnsItem } from '../../component/Table/EnhancedTableHead';
-import { FormContainer } from '../../component/Form';
+import { FieldGroupItemProps, FormContainer } from '../../component/Form';
 import { lang } from '../../constants/zh-cn';
-import { FieldGroupItemProps } from '../../component/Form/FieldGroup';
 
 const rows: Array<ColumnsItem> = [
   {id: 'name', align: 'left', disablePadding: false, label: '姓名'},
@@ -34,9 +33,14 @@ const dataResource = [{
 
 @autoBind
 export class TradeQuery extends React.Component<any, any> {
+
+  onSubmit(e) {
+    console.log(e);
+  }
+
   render() {
     const fieldGroups: Array<FieldGroupItemProps> = [{
-      fieldGroup: [{
+      group: [{
         fields: [{
           label: lang.merchant,
           name: 'merchantNo',
@@ -63,7 +67,9 @@ export class TradeQuery extends React.Component<any, any> {
 
     return (
       <React.Fragment>
-        <FormContainer fieldGroups={fieldGroups}/>
+        <FormContainer fieldGroups={fieldGroups}
+                       onSubmit={this.onSubmit}
+        />
         <TableConstant dataResource={dataResource}
                        columns={rows}
                        tableTitle="交易查询"

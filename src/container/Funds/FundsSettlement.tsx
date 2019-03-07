@@ -19,8 +19,8 @@ import { autoBind } from '@sitb/wbs/autoBind';
 }))
 @autoBind
 export class FundsSettlement extends React.PureComponent<any, any> {
-  onSubmit(e) {
-    console.log(e);
+  onSubmit(e, value, ...other) {
+    console.log(e, value, ...other);
   }
   render() {
     const {content} = this.props;
