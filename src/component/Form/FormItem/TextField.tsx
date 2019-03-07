@@ -13,7 +13,8 @@ export class TextField extends React.Component<any, any> {
       input: {value, onChange},
       meta: {touched, error, warning},
       variant,
-      label
+      label,
+      style
     } = this.props;
     // 是否存在错误验证信息
     const isError = touched && (error || warning);
@@ -23,6 +24,7 @@ export class TextField extends React.Component<any, any> {
                      variant={variant}
                      onChange={onChange}
                      error={Boolean(isError)}
+                     style={{width: '100%', ...style}}
                      helperText={isError}
       />
     )
