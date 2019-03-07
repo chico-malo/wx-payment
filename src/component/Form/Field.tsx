@@ -27,7 +27,7 @@ export interface FieldItem {
    * 添加afterDom
    */
   afterElement?: any;
-  options?: Array<SelectItemProps>
+  options?: Array<SelectItemProps> | object
 }
 
 // 表单variant类型
