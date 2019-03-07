@@ -28,13 +28,13 @@ export interface RequestToastParams {
  */
 export default (params: RequestToastParams = {}) => payload => {
   const {successTip = true, errorTip, prefix = ''} = params;
-  const {status} = payload;
+  const {status, success} = payload;
   // 获取错误信息 加错误前缀 | 常量错误 | 默认错误
   const msg = ObjectPath.get(requestMsg, `${prefix}.${status}`) || ObjectPath.get(requestMsg, status) || requestMsg.UNKNOWN;
-  // 先判断成功，else是失败
+  // 先判断成功，else是失败,一定要加上 success校验，不然 成功信息会以错误弹框显示
   if (status === '0000' && successTip) {
     SitbToastSuccess(msg);
-  } else if (status === '3000' || errorTip) {
+  } else if (!success && (status === '3000' || errorTip)) {
     SitbToastError(msg);
   }
 }
