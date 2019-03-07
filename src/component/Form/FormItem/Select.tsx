@@ -12,7 +12,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { OutlinedInput } from '@material-ui/core';
 import FormHelperText from '@material-ui/core/es/FormHelperText';
+import { withStyles } from '@sitb/wbs/mui/withStyles';
 
+
+const styles = theme => ({
+  control: {
+    width: '100%'
+  }
+});
+
+@withStyles(styles)
 export class Select extends React.Component<any, any> {
   InputLabelRef: any;
 
@@ -47,6 +56,7 @@ export class Select extends React.Component<any, any> {
 
   render() {
     const {
+      classes,
       input,
       meta,
       variant,
@@ -58,6 +68,7 @@ export class Select extends React.Component<any, any> {
     return (
       <FormControl variant={variant}
                    error={Boolean(isError)}
+                   className={classes.control}
       >
         <InputLabel htmlFor="outlined-age-simple"
                     ref={ref => this.InputLabelRef = ref}
