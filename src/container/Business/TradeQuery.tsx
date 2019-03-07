@@ -68,6 +68,7 @@ export class TradeQuery extends React.Component<any, any> {
     return (
       <React.Fragment>
         <FormContainer fieldGroups={fieldGroups}
+                       formSubmitProcessing={false}
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={dataResource}

@@ -23,10 +23,11 @@ export class FundsSettlement extends React.PureComponent<any, any> {
     console.log(e);
   }
   render() {
-    const {content} = this.props;
+    const {content, processing} = this.props;
     return (
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
+                       formSubmitProcessing={processing}
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={content}
