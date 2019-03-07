@@ -20,7 +20,10 @@ export interface SelectItemProps {
 }
 
 export interface SelectProps {
-  options: Array<SelectItemProps>
+  /**
+   * options 支持数组跟对象生成，对象生成规则为 key = label，  value = value；
+   */
+  options: Array<SelectItemProps> | object
 }
 
 const styles = theme => ({
@@ -52,13 +55,22 @@ export class Select extends React.Component<any, any> {
     let DEFAULT_DOM: any = [
       <MenuItem value="" key="default-0"><em>无数据</em></MenuItem>
     ];
-    options.forEach((item, index) => {
-      DEFAULT_DOM.push(
-        <MenuItem value={item.value}
-                  key={index}
-        >{item.label}</MenuItem>
-      )
-    });
+    // 校验对象
+    if (Object.prototype.toString.call(options) === '[object Object]') {
+      Object.keys(options).forEach((item, index) => {
+        DEFAULT_DOM.push(<MenuItem value={item}
+                                   key={index}
+        >{options[item]}</MenuItem>)
+      })
+    } else if (Array.isArray(options)) {
+      options.forEach((item, index) => {
+        DEFAULT_DOM.push(
+          <MenuItem value={item.value}
+                    key={index}
+          >{item.label}</MenuItem>
+        )
+      });
+    }
     return DEFAULT_DOM;
   }
 
