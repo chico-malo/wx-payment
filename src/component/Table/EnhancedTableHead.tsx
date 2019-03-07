@@ -29,6 +29,12 @@ export interface ColumnsItem extends TableCellProps {
    * 表头item 内边距
    */
   disablePadding?: boolean;
+  /**
+   * 自定义隐射
+   * @param key  当前key
+   * @param row  当前行数据
+   */
+  render?: (key, row) => void;
 }
 
 export interface TableHeadProps {

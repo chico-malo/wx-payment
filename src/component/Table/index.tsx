@@ -79,12 +79,12 @@ export class TableConstant extends React.Component<TableProps, any> {
    */
   handleTableItemClick(event, item: ColumnsItem, selectionType) {
     // 获取单选  多选 flag
-    const { isRadioStatus} = this.state;
-    const selected:Array<any> = this.state.selected;
+    const {isRadioStatus} = this.state;
+    const selected: Array<any> = this.state.selected;
     const {id} = item;
     // 单选 多选 state临时变量
     let newRadioStatus = id;
-    let newSelected:any = [];
+    let newSelected: any = [];
     // 如果选择器类型为单选，固定选择为1
     if (selectionType && selectionType === 'radio') {
       newSelected = [1];
@@ -187,18 +187,24 @@ export class TableConstant extends React.Component<TableProps, any> {
    * 根据row 渲染table
    * @param tableRow  当前tableRow数据
    */
-  renderTableBodyItem(tableRow:any) {
+  renderTableBodyItem(tableRow: any) {
     const {columns} = this.props;
-    return columns.map((rowItem:any, index) => {
-      const {id, disablePadding, ...other} = rowItem;
+    return columns.map((rowItem: ColumnsItem, index) => {
+      const {id, disablePadding, render, ...other} = rowItem;
       const newProps = {
         ...other,
         align: other.align || (other.numeric && 'right' || 'inherit')
       };
+      // 默认值
+      let DEFAULT_VALUE = tableRow[id];
+      // 自定义渲染
+      if (render) {
+        DEFAULT_VALUE = render(tableRow[id], tableRow);
+      }
       return (
         <TableCell key={index}
                    {...newProps}
-        >{tableRow[id]}</TableCell>
+        >{DEFAULT_VALUE}</TableCell>
       )
     });
   }
