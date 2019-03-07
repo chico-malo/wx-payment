@@ -7,7 +7,7 @@ import * as React from 'react';
 import { TextFieldProps } from '@material-ui/core/TextField';
 import { Grid } from '@material-ui/core';
 import { autoBind } from '@sitb/wbs/autoBind';
-import { Select } from './FormItem/Select';
+import { Select, SelectItemProps } from './FormItem/Select';
 import { Field as ReduxField } from 'redux-form'
 import { TextField } from './FormItem/TextField';
 import { PickerDate } from './FormItem/PickerDate';
@@ -27,7 +27,7 @@ export interface FieldItem {
    * 添加afterDom
    */
   afterElement?: any;
-  options?: any
+  options?: Array<SelectItemProps>
 }
 
 // 表单variant类型
