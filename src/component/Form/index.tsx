@@ -25,22 +25,30 @@ export interface AdditionalForm {
    */
   fieldGroups: Array<FieldGroupItemProps>;
   /**
-   * 表单layout
+   * 表单 variant
+   * 封装form组件 layout
    */
   unifiedVariant?: variantProps;
   layout?: layoutProps;
   /**
-   * 提交表单 函数
-   * @param values
-   */
-  onSubmit: (...values) => void;
-  /**
+   * 是否渲染 重置按钮
    * 重置表单 函数
    */
-  onReset?: () => void;
   reseated?: boolean;
+  onReset?: () => void;
   formContainerProps?: PaperProps;
+
+  /**
+   * 提交按钮 props
+   * 按钮名称
+   * 提交按钮 loading状态
+   * 提交函数
+   */
   formSubmitButtonProps?: ButtonProps;
+  formSubmitButtonName?: string;
+  formSubmitProcessing: boolean;
+  onSubmit: (values) => void;
+
   /**
    * 以下是reduxForm部分的props，依赖中没有定义，更多详细https://redux-form.com/6.6.2/docs/api/props.md/
    */
@@ -50,7 +58,6 @@ export interface AdditionalForm {
   submitting?: boolean;
   // 表单为初始值时 为true
   pristine?: boolean;
-  submitProcessing?: boolean;
 }
 
 export type FormProps = AdditionalForm;
@@ -144,7 +151,7 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
    * 渲染按钮组
    */
   buttonGroup() {
-    const {classes, handleSubmit, pristine, submitting, onSubmit, submitProcessing, reseated = true, formSubmitButtonProps} = this.props;
+    const {classes, handleSubmit, pristine, submitting, reseated = true, onSubmit, formSubmitProcessing, formSubmitButtonProps, formSubmitButtonName} = this.props;
     return (
       <Grid container
             className={classes.buttonContainer}
@@ -168,14 +175,14 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
                 {...formSubmitButtonProps}
         >
           {
-            submitProcessing && (
+            formSubmitProcessing && (
               <CircularProgress variant="indeterminate"
                                 disableShrink
                                 className={classes.loading}
                                 size={24}
                                 thickness={4}
               />
-            ) || '绑定'
+            ) || formSubmitButtonName
           }
         </Button>
       </Grid>

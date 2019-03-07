@@ -98,7 +98,7 @@ export class Login extends React.Component<any, any> {
   }
 
   render() {
-    const {classes} = this.props;
+    const {classes, loginProcessing} = this.props;
     const {countDown} = this.state;
     const fieldConfig: Array<FieldGroupItemProps> = [{
       group: [{
@@ -138,10 +138,12 @@ export class Login extends React.Component<any, any> {
             </Typography>
           </Grid>
           <FormContainer fieldGroups={fieldConfig}
-                         unifiedVariant='standard'
                          onSubmit={this.renderSubmit}
+                         unifiedVariant='standard'
                          layout="vertical"
                          reseated={false}
+                         formSubmitButtonName="绑定"
+                         formSubmitProcessing={loginProcessing}
                          formContainerProps={{elevation: 0}}
                          formSubmitButtonProps={{style: {width: '100%', margin: 0}, size: "large"}}
           />
