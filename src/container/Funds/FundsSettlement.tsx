@@ -10,7 +10,7 @@ import { TableConstant } from '../../component/Table';
 import { settleSearch } from './config/Search';
 import { settleColumns } from './config/Columns';
 import { autoBind } from '@sitb/wbs/autoBind';
-
+import { getActions } from '../../core/store';
 
 
 @connect(({fundsSettlement}) => ({
@@ -19,9 +19,16 @@ import { autoBind } from '@sitb/wbs/autoBind';
 }))
 @autoBind
 export class FundsSettlement extends React.PureComponent<any, any> {
-  onSubmit(e) {
-    console.log(e);
+
+  handleSearch(params: object = {}): void {
+    getActions().fundsSettlement.startQuery(params);
+    console.log('search =>', params);
   }
+
+  onSubmit(params) {
+    this.handleSearch(params);
+  }
+
   render() {
     const {content, processing} = this.props;
     return (

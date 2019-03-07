@@ -5,6 +5,7 @@
  */
 import { lang } from '../../../constants/zh-cn';
 import { FieldGroupItemProps } from '../../../component/Form';
+import { merchantNoOptions } from '../../../constants/select/merchantNo';
 
 // 结算模块 搜索表单
 export const settleSearch: Array<FieldGroupItemProps> = [{
@@ -15,13 +16,7 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
       required: true,
       missText: '商户号不能为空',
       type: 'select',
-      options: [{
-        label: '月',
-        value: 'yue'
-      }, {
-        label: '李月',
-        value: 'l'
-      }]
+      options: merchantNoOptions()
     }, {
       label: lang.fundsSettlement.startAmount,
       name: 'startAmount',
