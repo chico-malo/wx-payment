@@ -58,43 +58,44 @@ export class Login extends React.Component<any, any> {
   }
 
   /**
-   * 表单提交
+   * 发送验证码
    */
-  handleSubmit(e, type) {
-    console.log(e);
-    const values: any = {};
-    const {merchantNo, verifiedCode} = values;
-
-    if (type === 'send') {
-      // 倒计时
-      let time = setInterval(() => {
-        const {countDownProcessing} = this.props;
-        // processing永远都为true，只有发送验证码失败才为false
-        if (!countDownProcessing || this.state.countDown === 0) {
-          // 解除定时器，重置倒计时
-          clearInterval(time);
-          this.setState({
-            countDown: 60
-          });
-        } else {
-          this.setState({
-            countDown: this.state.countDown - 1
-          });
-        }
-      }, 1000);
-      getActions().session.startSend(merchantNo);
+  handleSend(values) {
+    const {merchantNo} = values;
+    if (!merchantNo) {
+      warn('请输入您的商户号');
+      return;
     }
-    if (type === 'bind') {
-      if (!verifiedCode) {
-        warn('请输入您的验证码');
-        return;
+    // 倒计时
+    let time = setInterval(() => {
+      const {countDownProcessing} = this.props;
+      // processing永远都为true，只有发送验证码失败才为false
+      if (!countDownProcessing || this.state.countDown === 0) {
+        // 解除定时器，重置倒计时
+        clearInterval(time);
+        this.setState({
+          countDown: 60
+        });
+      } else {
+        this.setState({
+          countDown: this.state.countDown - 1
+        });
       }
-      getActions().session.startBind({merchantNo, verifiedCode});
-    }
+    }, 1000);
+    getActions().session.startSend(merchantNo);
   }
 
-  renderSubmit(e) {
-    console.log(e);
+  /**
+   * 表单提交 submit
+   * @param values  表单数据
+   */
+  handleSubmit(values) {
+    const {merchantNo, verifiedCode} = values;
+    if (!verifiedCode) {
+      warn('请输入您的验证码');
+      return;
+    }
+    getActions().session.startBind({merchantNo, verifiedCode});
   }
 
   render() {
@@ -114,7 +115,7 @@ export class Login extends React.Component<any, any> {
             <Button variant="contained"
                     color="primary"
                     className={classes.sendBtn}
-                    onClick={handleSubmit(this.handleSubmit)}
+                    onClick={handleSubmit(this.handleSend)}
                     disabled={countDown !== 60}
             >
               {countDown !== 60 && countDown || '发送验证码'}
@@ -138,7 +139,7 @@ export class Login extends React.Component<any, any> {
             </Typography>
           </Grid>
           <FormContainer fieldGroups={fieldConfig}
-                         onSubmit={this.renderSubmit}
+                         onSubmit={this.handleSubmit}
                          unifiedVariant='standard'
                          layout="vertical"
                          reseated={false}
