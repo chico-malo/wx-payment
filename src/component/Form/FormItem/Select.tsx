@@ -14,6 +14,14 @@ import { OutlinedInput } from '@material-ui/core';
 import FormHelperText from '@material-ui/core/es/FormHelperText';
 import { withStyles } from '@sitb/wbs/mui/withStyles';
 
+export interface SelectItemProps {
+  label: string;
+  value: string;
+}
+
+export interface SelectProps {
+  options: Array<SelectItemProps>
+}
 
 const styles = theme => ({
   control: {
