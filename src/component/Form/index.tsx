@@ -106,7 +106,10 @@ const warn = values => {
 @reduxForm({
   form: 'simple', // a unique identifier for this form
   warn,
-  validate
+  validate,
+  initialValues: {
+    merchantNo: 112500000000367
+  }
 })
 @withStyles(styles)
 @autoBind
