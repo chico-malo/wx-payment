@@ -12,6 +12,7 @@ import { Field as ReduxField } from 'redux-form'
 import { TextField } from './FormItem/TextField';
 import { PickerDate } from './FormItem/PickerDate';
 import { PickerTime } from './FormItem/PickerTime';
+import { MaskNumber } from './FormItem/MaskNumber';
 
 export interface FieldItem {
   /**
@@ -45,6 +46,7 @@ export interface FieldProps {
 const renderComponent = {
   select: Select,
   text: TextField,
+  number: MaskNumber,
   date: PickerDate,
   time: PickerTime
 };

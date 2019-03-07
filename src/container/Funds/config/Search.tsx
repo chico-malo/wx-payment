@@ -24,7 +24,8 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
       }]
     }, {
       label: lang.fundsSettlement.startAmount,
-      name: 'startAmount'
+      name: 'startAmount',
+      type: 'number'
     }, {
       label: lang.fundsSettlement.endAmount,
       name: 'endAmount'
