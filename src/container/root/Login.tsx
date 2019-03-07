@@ -141,7 +141,9 @@ export class Login extends React.Component<any, any> {
                          unifiedVariant='standard'
                          onSubmit={this.renderSubmit}
                          layout="vertical"
+                         reseated={false}
                          formContainerProps={{elevation: 0}}
+                         formSubmitButtonProps={{style: {width: '100%', margin: 0}, size: "large"}}
           />
         </Paper>
       </Grid>

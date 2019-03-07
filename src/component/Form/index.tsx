@@ -10,6 +10,7 @@ import { withStyles } from '@sitb/wbs/mui/withStyles';
 import { reduxForm } from 'redux-form'
 import { Field, FieldProps, layoutProps, variantProps } from './Field';
 import { PaperProps } from '@material-ui/core/es/Paper';
+import { ButtonProps } from '@material-ui/core/Button';
 
 
 export interface FieldGroupItemProps {
@@ -37,7 +38,9 @@ export interface AdditionalForm {
    * 重置表单 函数
    */
   onReset?: () => void;
+  reseated?: boolean;
   formContainerProps?: PaperProps;
+  formSubmitButtonProps?: ButtonProps;
   /**
    * 以下是reduxForm部分的props，依赖中没有定义，更多详细https://redux-form.com/6.6.2/docs/api/props.md/
    */
@@ -56,6 +59,9 @@ const styles = theme => ({
   paper: {
     marginTop: 24,
     padding: 12
+  },
+  buttonContainer: {
+    marginTop: 10
   },
   button: {
     margin: theme.spacing.unit
@@ -138,23 +144,28 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
    * 渲染按钮组
    */
   buttonGroup() {
-    const {classes, handleSubmit, pristine, submitting, onSubmit, submitProcessing} = this.props;
+    const {classes, handleSubmit, pristine, submitting, onSubmit, submitProcessing, reseated = true, formSubmitButtonProps} = this.props;
     return (
       <Grid container
+            className={classes.buttonContainer}
             justify="flex-end"
       >
-        <Button variant="contained"
-                className={classes.button}
-                disabled={pristine || submitting}
-                onClick={this.onReset}
-        >
-          {'清空'}
-        </Button>
+        {
+          reseated && (
+            <Button variant="contained"
+                    className={classes.button}
+                    disabled={pristine || submitting}
+                    onClick={this.onReset}
+            >
+              {'清空'}
+            </Button>)
+        }
         <Button variant="contained"
                 color="primary"
                 className={classes.button}
                 disabled={pristine || submitting}
                 onClick={handleSubmit && handleSubmit(onSubmit)}
+                {...formSubmitButtonProps}
         >
           {
             submitProcessing && (
