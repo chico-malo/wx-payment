@@ -17,10 +17,10 @@ export const merchantNoOptions = (): Array<SelectItemProps> => {
   if (storageMerchant && Array.isArray(storageMerchant)) {
     storageMerchant.forEach((item: any) => {
       // 打印错误logo
-      if (!item.merchantName || !item.storageMerchant) {
+      if (!item.merchantName || !item.merchantNo) {
         console.warn('select storageMerchant Build failed！');
       }
-      DEFAULT_OPTIONS.push({label: item.merchantName, value: item.storageMerchant});
+      DEFAULT_OPTIONS.push({label: item.merchantName, value: item.merchantNo});
     });
   }
   return DEFAULT_OPTIONS;
