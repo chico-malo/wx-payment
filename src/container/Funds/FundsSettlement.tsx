@@ -28,6 +28,7 @@ export class FundsSettlement extends React.PureComponent<any, any> {
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
                        formSubmitProcessing={processing}
+                       formSubmitButtonProps={{disabled: false}}
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={content}

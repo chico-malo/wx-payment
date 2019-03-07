@@ -29,7 +29,6 @@ export class PickerTime extends React.Component<any, any> {
     } = this.props;
     // 是否存在错误验证信息
     const isError = meta && meta.touched && (meta.error || meta.warning);
-    console.log(isError);
     return (
       <FormControl variant={variant}
                    error={Boolean(isError)}

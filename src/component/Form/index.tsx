@@ -92,9 +92,6 @@ const validate = values => {
   } else if (values.selectText.length > 15) {
     errors.selectText = 'Must be 15 characters or less'
   }
-  if (!values.startAt) {
-    errors.startAt = 'startAtstartAtstartAt';
-  }
   return errors
 };
 
@@ -161,7 +158,6 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
           reseated && (
             <Button variant="contained"
                     className={classes.button}
-                    disabled={pristine || submitting}
                     onClick={this.onReset}
             >
               {'清空'}
