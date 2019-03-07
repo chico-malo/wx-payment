@@ -21,7 +21,7 @@ export class momentUtils {
    * @param time
    */
   static formatDate(time) {
-    return moment(time).format(formatType.dateMonthYear);
+    return time && moment(time).format(formatType.dateMonthYear) || '';
   }
 
   /**
@@ -29,7 +29,7 @@ export class momentUtils {
    * @param time
    */
   static formatDateHMS(time) {
-    return moment(time).format(formatType.dateMonthYearHMS);
+    return time && moment(time).format(formatType.dateMonthYearHMS) || '';
   }
 
   /**
@@ -37,6 +37,6 @@ export class momentUtils {
    * @param time
    */
   static formatTime(time) {
-    return moment(time).format(formatType.time);
+    return time && moment(time).format(formatType.time) || '';
   }
 }

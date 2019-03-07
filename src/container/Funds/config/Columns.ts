@@ -7,7 +7,7 @@ import { ColumnsItem } from '../../../component/Table/EnhancedTableHead';
 import { lang } from '../../../constants/zh-cn';
 import { settleStatus } from '../../../constants/select/settleStatus';
 import { SettleCycleOptions } from '../../../constants/select/settleCycle';
-import moment from 'moment';
+import { momentUtils } from '../../../utils/momentFormat';
 
 export const settleColumns: Array<ColumnsItem> = [{
   id: 'auditNumber',
@@ -32,15 +32,15 @@ export const settleColumns: Array<ColumnsItem> = [{
 }, {
   id: 'settleAt',
   label: lang.fundsSettlement.settleAt,
-  render: (settleAt) => settleAt && moment(settleAt).format('YYYY-MM-DD')
+  render: (settleAt) => momentUtils.formatDate(settleAt)
 }, {
   id: 'createAt',
   label: lang.createAt,
-  render: (createAt) => createAt && moment(createAt).format('YYYY-MM-DD')
+  render: (createAt) => momentUtils.formatDate(createAt)
 }, {
   id: 'updateAt',
   label: lang.updateAt,
-  render: (updateAt) => updateAt && moment(updateAt).format('YYYY-MM-DD')
+  render: (updateAt) => momentUtils.formatDate(updateAt)
 }, {
   id: 'remark',
   label: lang.remark
