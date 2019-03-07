@@ -6,30 +6,9 @@
 import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
 import { TableConstant } from "../../component/Table";
-import { ColumnsItem } from '../../component/Table/EnhancedTableHead';
-import { FieldGroupItemProps, FormContainer } from '../../component/Form';
-import { lang } from '../../constants/zh-cn';
-
-const rows: Array<ColumnsItem> = [
-  {id: 'name', align: 'left', disablePadding: false, label: '姓名'},
-  {id: 'gender', align: 'right', disablePadding: false, label: '性别'},
-  {id: 'age', align: 'right', disablePadding: false, label: '年龄'},
-  {id: 'favorite', align: 'right', disablePadding: false, label: '喜爱'}
-];
-
-const dataResource = [{
-  id: 1,
-  name: 'l',
-  gender: '男',
-  age: '18',
-  favorite: '飞飞飞'
-}, {
-  id: 2,
-  name: '月',
-  gender: '男',
-  age: '17',
-  favorite: 'kami'
-}];
+import { FormContainer } from '../../component/Form';
+import { columnsTradeQuery } from './config/columnsTradeQuery';
+import { searchTradeQuery } from './config/searchTradeQuery';
 
 @autoBind
 export class TradeQuery extends React.Component<any, any> {
@@ -39,40 +18,15 @@ export class TradeQuery extends React.Component<any, any> {
   }
 
   render() {
-    const fieldGroups: Array<FieldGroupItemProps> = [{
-      group: [{
-        fields: [{
-          label: lang.merchant,
-          name: 'merchantNo',
-          missText: '2222',
-          required: true
-        }, {
-          label: lang.time,
-          name: 'time'
-        }, {
-          label: lang.tradeState,
-          name: 'tradeState'
-        }, {
-          label: lang.amount,
-          name: 'amount'
-        }, {
-          label: lang.audioNumber,
-          name: 'audioNumber'
-        }, {
-          label: lang.businessType,
-          name: 'businessType'
-        }]
-      }]
-    }];
 
     return (
       <React.Fragment>
-        <FormContainer fieldGroups={fieldGroups}
+        <FormContainer fieldGroups={searchTradeQuery}
                        formSubmitProcessing={false}
                        onSubmit={this.onSubmit}
         />
-        <TableConstant dataResource={dataResource}
-                       columns={rows}
+        <TableConstant dataResource={[]}
+                       columns={columnsTradeQuery}
                        tableTitle="交易查询"
                        selection={{type: 'checkbox'}}
         />

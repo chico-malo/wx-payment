@@ -7,7 +7,7 @@ import { TradeRefund } from '../container/Business/TradeRefund';
 import { FundsSettlement } from '../container/Funds/FundsSettlement';
 
 import { ReconciliationServiceBill } from '../container/Reconciliation/ReconciliationServiceBill';
-import { RconciliationBillDown } from '../container/Reconciliation/RconciliationBillDown';
+import { ReconciliationBillDown } from '../container/Reconciliation/ReconciliationBillDown';
 
 import { menu } from '../constants/zh-cn';
 
@@ -51,7 +51,7 @@ export default [{
 }, {
   path: routerPath.reconciliationBillDown,
   title: menu.reconciliationBillDown,
-  component: RconciliationBillDown
+  component: ReconciliationBillDown
 }, {
   path: routerPath.reconciliationServiceBill,
   title: menu.reconciliationServiceBill,

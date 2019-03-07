@@ -26,6 +26,10 @@ export class FundsSettlement extends React.PureComponent<any, any> {
   }
 
   onSubmit(params) {
+    const {startAt, endAt} = params;
+    if (startAt && endAt) {
+      params.startAt = '';
+    }
     this.handleSearch(params);
   }
 
@@ -40,7 +44,7 @@ export class FundsSettlement extends React.PureComponent<any, any> {
         />
         <TableConstant dataResource={page.content}
                        columns={settleColumns}
-                       tableTitle="交易查询"
+                       tableTitle="结算查询"
         />
       </React.Fragment>
     )

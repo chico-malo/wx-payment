@@ -7,11 +7,11 @@ import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
 import { TableConstant } from "../../component/Table";
 import { FormContainer } from '../../component/Form';
-import { searchTradeRefund } from './config/searchTradeRefund';
-import { columnsTradeRefund } from './config/columnsTradeRefund';
+import { searchBillDown } from './config/searchBillDown';
+import { columnsBillDown } from './config/columnsBillDown';
 
 @autoBind
-export class TradeRefund extends React.Component<any, any> {
+export class ReconciliationBillDown extends React.Component<any, any> {
 
   onSubmit(e) {
     console.log(e);
@@ -21,13 +21,13 @@ export class TradeRefund extends React.Component<any, any> {
 
     return (
       <React.Fragment>
-        <FormContainer fieldGroups={searchTradeRefund}
+        <FormContainer fieldGroups={searchBillDown}
                        formSubmitProcessing={false}
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={[]}
-                       columns={columnsTradeRefund}
-                       tableTitle="交易退款"
+                       columns={columnsBillDown}
+                       tableTitle="账单下载"
                        selection={{type: 'checkbox'}}
         />
       </React.Fragment>
