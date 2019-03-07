@@ -6,6 +6,7 @@
 import { lang } from '../../../constants/zh-cn';
 import { FieldGroupItemProps } from '../../../component/Form';
 import { merchantNoOptions } from '../../../constants/select/merchantNo';
+import { settleStatus } from '../../../constants/select/settleStatus';
 
 // 结算模块 搜索表单
 export const settleSearch: Array<FieldGroupItemProps> = [{
@@ -37,7 +38,9 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
       type: 'time'
     }, {
       label: lang.fundsSettlement.status,
-      name: 'status'
+      name: 'status',
+      type: 'select',
+      options: settleStatus
     }]
   }]
 }];
