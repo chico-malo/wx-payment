@@ -37,7 +37,8 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
       type: 'date'
     }, {
       label: lang.fundsSettlement.endAt,
-      name: 'endAt'
+      name: 'endAt',
+      type: 'time'
     }, {
       label: lang.fundsSettlement.status,
       name: 'status'
