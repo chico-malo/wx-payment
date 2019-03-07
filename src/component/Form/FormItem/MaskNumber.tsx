@@ -5,16 +5,21 @@
  */
 import * as React from 'react';
 import MaskedInput from 'react-text-mask'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import MateRialField from '@material-ui/core/TextField';
 
 function TextMaskCustom(props) {
   const {inputRef, ...other} = props;
+  const numberMask = createNumberMask({
+    prefix: '¥ ',
+    suffix: ''
+  });
   return (
     <MaskedInput{...other}
                 ref={ref => {
                   inputRef(ref ? ref.inputElement : null);
                 }}
-                mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                mask={numberMask}
     />
   );
 }
@@ -26,7 +31,8 @@ export class MaskNumber extends React.Component<any, any> {
       input,
       meta,
       label,
-      variant
+      variant,
+      style
     } = this.props;
     // 是否存在错误验证信息
     const isError = meta && meta.touched && (meta.error || meta.warning);
@@ -34,6 +40,7 @@ export class MaskNumber extends React.Component<any, any> {
       <MateRialField value={input && input.value}
                      label={label}
                      variant={variant}
+                     style={style}
                      onChange={input && input.onChange}
                      error={Boolean(isError)}
                      helperText={isError}

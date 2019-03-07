@@ -151,7 +151,7 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
    * 渲染按钮组
    */
   buttonGroup() {
-    const {classes, handleSubmit, pristine, submitting, reseated = true, onSubmit, formSubmitProcessing, formSubmitButtonProps, formSubmitButtonName} = this.props;
+    const {classes, handleSubmit, pristine, submitting, reseated = true, onSubmit, formSubmitProcessing, formSubmitButtonProps, formSubmitButtonName = '搜索'} = this.props;
     return (
       <Grid container
             className={classes.buttonContainer}
