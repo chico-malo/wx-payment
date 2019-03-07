@@ -7,12 +7,14 @@ import compose from './composeReducer';
 import { fundsSettlement as types } from '../constants/ActionTypes';
 
 const DEFAULT_STATE = {
-  content: [],
+  page: {
+    content: []
+  },
   processing: false
 };
 
 export default compose((state = DEFAULT_STATE, actions) => {
-  const {type, success, message} = actions;
+  const {type, success, payload} = actions;
   switch (type) {
     case types.startQuery:
       return {
@@ -22,7 +24,7 @@ export default compose((state = DEFAULT_STATE, actions) => {
     case types.queryComplete: {
       return {
         ...state,
-        content: success && message || state.content,
+        page: success && payload || state.page,
         processing: false
       };
     }

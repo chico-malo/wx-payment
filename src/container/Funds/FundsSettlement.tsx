@@ -14,7 +14,7 @@ import { getActions } from '../../core/store';
 
 
 @connect(({fundsSettlement}) => ({
-  content: fundsSettlement.content,
+  page: fundsSettlement.page,
   processing: fundsSettlement.processing
 }))
 @autoBind
@@ -30,7 +30,7 @@ export class FundsSettlement extends React.PureComponent<any, any> {
   }
 
   render() {
-    const {content, processing} = this.props;
+    const {page, processing} = this.props;
     return (
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
@@ -38,7 +38,7 @@ export class FundsSettlement extends React.PureComponent<any, any> {
                        formSubmitButtonProps={{disabled: false}}
                        onSubmit={this.onSubmit}
         />
-        <TableConstant dataResource={content}
+        <TableConstant dataResource={page.content}
                        columns={settleColumns}
                        tableTitle="交易查询"
         />
