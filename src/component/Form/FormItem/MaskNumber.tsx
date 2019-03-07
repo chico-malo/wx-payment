@@ -5,7 +5,6 @@
  */
 import * as React from 'react';
 import MaskedInput from 'react-text-mask'
-import { withStyles } from '@sitb/wbs/mui/withStyles';
 import MateRialField from '@material-ui/core/TextField';
 
 function TextMaskCustom(props) {
@@ -20,15 +19,7 @@ function TextMaskCustom(props) {
   );
 }
 
-const styles = theme => ({
-  control: {
-    width: '100%'
-  }
-});
-
-@withStyles(styles)
 export class MaskNumber extends React.Component<any, any> {
-
 
   render() {
     const {
