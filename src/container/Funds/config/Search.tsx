@@ -24,18 +24,15 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
       type: 'number'
     }, {
       label: lang.fundsSettlement.endAmount,
-      name: 'endAmount'
+      name: 'endAmount',
+      type: 'number'
     }, {
       label: lang.fundsSettlement.auditNumber,
       name: 'auditNumber'
     }, {
       label: lang.fundsSettlement.startAt,
-      name: 'startAt',
+      name: 'settleAt',
       type: 'date'
-    }, {
-      label: lang.fundsSettlement.endAt,
-      name: 'endAt',
-      type: 'time'
     }, {
       label: lang.fundsSettlement.status,
       name: 'status',

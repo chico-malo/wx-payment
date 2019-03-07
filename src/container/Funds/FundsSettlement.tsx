@@ -11,7 +11,7 @@ import { settleSearch } from './config/Search';
 import { settleColumns } from './config/Columns';
 import { autoBind } from '@sitb/wbs/autoBind';
 import { getActions } from '../../core/store';
-
+import { momentUtils } from '../../utils/momentFormat';
 
 @connect(({fundsSettlement}) => ({
   page: fundsSettlement.page,
@@ -19,18 +19,27 @@ import { getActions } from '../../core/store';
 }))
 @autoBind
 export class FundsSettlement extends React.PureComponent<any, any> {
-
+  /**
+   * 搜索方法
+   * @param params 搜索参数
+   */
   handleSearch(params: object = {}): void {
     getActions().fundsSettlement.startQuery(params);
     console.log('search =>', params);
   }
 
+  /**
+   * 手动onSearch方法
+   * @param params
+   */
   onSubmit(params) {
-    const {startAt, endAt} = params;
-    if (startAt && endAt) {
-      params.startAt = '';
+    let newParams = params;
+    const {settleAt} = newParams;
+    if (settleAt) {
+      newParams.startAt = `${momentUtils.formatDate(newParams.settleAt)} 00:00:00`;
+      newParams.endAt = `${momentUtils.formatDate(newParams.settleAt)} 23:59:59`;
     }
-    this.handleSearch(params);
+    this.handleSearch(newParams);
   }
 
   render() {
