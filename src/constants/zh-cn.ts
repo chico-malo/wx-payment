@@ -22,6 +22,7 @@ export const lang = {
   untreated: '未处理',
   success: '成功',
   failure: '失败',
+  waitPayment: '待支付',
   processing: '处理中',
   exception: '驳回',
 
@@ -49,6 +50,14 @@ export const lang = {
     settleAt: '结算时间',
     startAt: '结算开始时间',
     endAt: '结算结束时间'
+  },
+  trade: {
+    status: '交易状态',
+    subAuditNumber: '商户流水号',
+    refundAmount: '退货金额',
+    paymentAt: '支付时间',
+    close: '交易关闭',
+    delete: '删除'
   }
 };
 //  菜单
