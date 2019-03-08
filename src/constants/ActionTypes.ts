@@ -13,6 +13,12 @@ export const fundsSettlement: any = create('funds-settlement', {
   queryComplete: ''
 });
 
+// 交易查询
+export const trade: any = create('trade', {
+  startQuery: '',
+  queryComplete: ''
+});
+
 export const navigator: any = create('navigator', {
   navigate: '',
   back: '',
