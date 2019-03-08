@@ -190,7 +190,7 @@ export class TableConstant extends React.Component<TableProps, any> {
   renderTableBodyItem(tableRow: any) {
     const {columns} = this.props;
     return columns.map((rowItem: ColumnsItem, index) => {
-      const {id, disablePadding, render, ...other} = rowItem;
+      const {id, disablePadding, render, mappingSource, ...other} = rowItem;
       const newProps = {
         ...other,
         align: other.align || (other.numeric && 'right' || 'inherit')
@@ -200,6 +200,10 @@ export class TableConstant extends React.Component<TableProps, any> {
       // 自定义渲染
       if (render) {
         DEFAULT_VALUE = render(tableRow[id], tableRow);
+      }
+      //  隐射源
+      if (mappingSource) {
+        DEFAULT_VALUE = mappingSource[tableRow[id]];
       }
       return (
         <TableCell key={index}

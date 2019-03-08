@@ -35,6 +35,10 @@ export interface ColumnsItem extends TableCellProps {
    * @param row  当前行数据
    */
   render?: (key, row) => void;
+  /**
+   * 隐射源，只需要提供需要隐射的对象
+   */
+  mappingSource?: object
 }
 
 export interface TableHeadProps {
