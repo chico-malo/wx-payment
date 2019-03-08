@@ -6,41 +6,39 @@
 import { ColumnsItem } from '../../../component/Table/EnhancedTableHead';
 import { lang } from '../../../constants/zh-cn';
 import { settleStatus } from '../../../constants/select/settleStatus';
-import { SettleCycleOptions } from '../../../constants/select/settleCycle';
-import moment from 'moment';
+import { momentUtils } from '../../../utils/momentFormat';
 
 export const columnsTradeQuery: Array<ColumnsItem> = [{
+  id: 'merchantNo',
+  label: lang.merchantNo
+}, {
   id: 'auditNumber',
   label: lang.audioNumber
 }, {
-  id: 'totalFee',
-  label: lang.totalFee
+  id: 'subAuditNumber',
+  label: lang.trade.subAuditNumber
 }, {
-  id: 'realSettleAmount',
-  label: lang.fundsSettlement.realSettleAmount
+  id: 'refundAmount',
+  label: lang.trade.refundAmount
 }, {
   id: 'status',
-  label: lang.fundsSettlement.status,
-  render: status => status && settleStatus[status]
-}, {
-  id: 'settleCycle',
-  label: lang.fundsSettlement.settleCycle,
-  render: settleCycle => settleCycle && SettleCycleOptions[settleCycle]
+  label: lang.trade.status,
+  mappingSource: settleStatus
 }, {
   id: 'totalAmount',
   label: lang.fundsSettlement.totalAmount
 }, {
-  id: 'settleAt',
-  label: lang.fundsSettlement.settleAt,
-  render: (settleAt) => settleAt && moment(settleAt).format('YYYY-MM-DD')
+  id: 'paymentAt',
+  label: lang.trade.paymentAt,
+  render: (paymentAt) => momentUtils.formatDate(paymentAt)
 }, {
   id: 'createAt',
   label: lang.createAt,
-  render: (createAt) => createAt && moment(createAt).format('YYYY-MM-DD')
+  render: (createAt) => momentUtils.formatDate(createAt)
 }, {
   id: 'updateAt',
   label: lang.updateAt,
-  render: (updateAt) => updateAt && moment(updateAt).format('YYYY-MM-DD')
+  render: (updateAt) => momentUtils.formatDate(updateAt)
 }, {
   id: 'remark',
   label: lang.remark

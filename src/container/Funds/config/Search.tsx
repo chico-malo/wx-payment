@@ -14,8 +14,6 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
     fields: [{
       label: lang.merchantNo,
       name: 'merchantNo',
-      required: true,
-      missText: '商户号不能为空',
       type: 'select',
       options: merchantNoOptions()
     }, {
@@ -30,7 +28,7 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
       label: lang.fundsSettlement.auditNumber,
       name: 'auditNumber'
     }, {
-      label: lang.fundsSettlement.startAt,
+      label: lang.fundsSettlement.settleAt,
       name: 'settleAt',
       type: 'date'
     }, {
