@@ -6,6 +6,8 @@
 const {api, authApi} = (global as any).config;
 
 export default {
+  tradeQuery: `${api}/payments`,
+
   session: `${api}/session`,
   settles: `${api}/settles`,
   send: `${api}/merchant-check-value`,
