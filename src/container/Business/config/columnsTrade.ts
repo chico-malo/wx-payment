@@ -8,7 +8,7 @@ import { lang } from '../../../constants/zh-cn';
 import { settleStatus } from '../../../constants/select/settleStatus';
 import { momentUtils } from '../../../utils/momentFormat';
 
-export const columnsTradeQuery: Array<ColumnsItem> = [{
+export const columnsTrade: Array<ColumnsItem> = [{
   id: 'merchantNo',
   label: lang.merchantNo
 }, {

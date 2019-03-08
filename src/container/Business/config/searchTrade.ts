@@ -9,7 +9,7 @@ import { tradeStatus } from '../../../constants/select/tradeStatus';
  * author: yangyao(873241789@qq.com)
  * date: 2019-03-07
  */
-export const searchTradeQuery: Array<FieldGroupItemProps> = [{
+export const searchTrade: Array<FieldGroupItemProps> = [{
   group: [{
     fields: [{
       label: lang.merchantNo,

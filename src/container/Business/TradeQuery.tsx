@@ -7,12 +7,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { TableConstant } from "../../component/Table";
 import { FormContainer } from '../../component/Form';
-import { columnsTradeQuery } from './config/columnsTradeQuery';
-import { searchTradeQuery } from './config/searchTradeQuery';
+import { columnsTrade } from './config/columnsTrade';
+import { searchTrade } from './config/searchTrade';
 import { autoBind } from '@sitb/wbs/autoBind';
 import { momentUtils } from '../../utils/momentFormat';
 import { getActions } from '../../core/store';
-import { businessTypeOptions } from '../../constants/select/businessType';
 
 @connect(({trade}) => ({
   processing: trade.processing,
@@ -42,16 +41,15 @@ export class TradeQuery extends React.Component<any, any> {
 
   render() {
     const {page, processing} = this.props;
-    console.log(businessTypeOptions);
     return (
       <React.Fragment>
-        <FormContainer fieldGroups={searchTradeQuery}
+        <FormContainer fieldGroups={searchTrade}
                        formSubmitProcessing={processing}
                        formSubmitButtonProps={{disabled: false}}
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={page.content}
-                       columns={columnsTradeQuery}
+                       columns={columnsTrade}
                        tableTitle="交易查询"
                        selection={{type: 'checkbox'}}
         />
