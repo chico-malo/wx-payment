@@ -5,10 +5,8 @@
  */
 import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
-import { TableConstant } from "../../component/Table";
 import { FormContainer } from '../../component/Form';
 import { searchBillDown } from './config/searchBillDown';
-import { columnsBillDown } from './config/columnsBillDown';
 
 @autoBind
 export class ReconciliationBillDown extends React.Component<any, any> {
@@ -24,11 +22,6 @@ export class ReconciliationBillDown extends React.Component<any, any> {
         <FormContainer fieldGroups={searchBillDown}
                        formSubmitProcessing={false}
                        onSubmit={this.onSubmit}
-        />
-        <TableConstant dataResource={[]}
-                       columns={columnsBillDown}
-                       tableTitle="账单下载"
-                       selection={{type: 'checkbox'}}
         />
       </React.Fragment>
     );

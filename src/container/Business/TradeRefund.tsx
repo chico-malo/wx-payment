@@ -49,6 +49,7 @@ export class TradeRefund extends React.Component<any, any> {
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={page.content}
+                       processing={processing}
                        columns={columnsTrade}
                        tableTitle="交易退款"
                        selection={{type: 'checkbox'}}

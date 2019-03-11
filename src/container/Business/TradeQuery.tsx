@@ -49,6 +49,7 @@ export class TradeQuery extends React.Component<any, any> {
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={page.content}
+                       processing={processing}
                        columns={columnsTrade}
                        tableTitle="交易查询"
                        selection={{type: 'checkbox'}}

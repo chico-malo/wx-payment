@@ -53,6 +53,7 @@ export class FundsSettlement extends React.PureComponent<any, any> {
         />
         <TableConstant dataResource={page.content}
                        columns={settleColumns}
+                       processing={processing}
                        tableTitle="结算查询"
         />
       </React.Fragment>

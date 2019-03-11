@@ -12,6 +12,7 @@ import { withStyles } from '../../utils/withStyles';
 import { AdditionalTableToolbarProps, EnhancedTableToolbar } from './EnhancedTableToolbar';
 import { ColumnsItem, EnhancedTableHead, SelectionItem } from "./EnhancedTableHead";
 import { lang } from '../../constants/zh-cn';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 export interface AdditionalTableProps {
   classes?: any;
@@ -27,14 +28,17 @@ export interface AdditionalTableProps {
    * 表格选择器配置
    */
   selection?: SelectionItem;
+  processing: boolean;
 }
 
 export type TableProps = AdditionalTableProps & AdditionalTableToolbarProps
 
 const styles = theme => ({
   root: {
+    position: 'relative',
+    overflow: 'hidden',
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3
   },
   table: {
     minWidth: 1020,
@@ -42,6 +46,12 @@ const styles = theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
+  linear: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0
+  }
 });
 
 @withStyles(styles)
@@ -246,13 +256,14 @@ export class TableConstant extends React.Component<TableProps, any> {
   }
 
   render() {
-    const {classes, dataResource, columns, selection, tableTitle, tableButton} = this.props;
+    const {classes, dataResource, columns, selection, tableTitle, tableButton, processing} = this.props;
     const {order, orderBy, selected, rowsPerPage, page} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, dataResource.length - page * rowsPerPage);
     // 获取 选择器类型
     const selectionType = objectPath.get(selection, 'type');
     return (
       <Paper className={classes.root}>
+        {processing && <LinearProgress className={classes.linear} variant="query" valueBuffer={2}/>}
         <EnhancedTableToolbar numSelected={selected.length}
                               tableTitle={tableTitle}
                               tableButton={tableButton}
