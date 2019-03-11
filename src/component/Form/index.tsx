@@ -7,7 +7,6 @@ import * as React from 'react';
 import { Button, CircularProgress, Grid, Paper } from '@material-ui/core';
 import { autoBind } from '@sitb/wbs/autoBind';
 import { withStyles } from '@sitb/wbs/mui/withStyles';
-import { reduxForm } from 'redux-form'
 import { Field, FieldProps, layoutProps, variantProps } from './Field';
 import { PaperProps } from '@material-ui/core/es/Paper';
 import { ButtonProps } from '@material-ui/core/Button';
@@ -79,38 +78,6 @@ const styles = theme => ({
   }
 });
 
-
-const validate = values => {
-  const errors: any = {};
-  if (!values.username) {
-    errors.username = 'Required'
-  } else if (values.username.length > 15) {
-    errors.username = 'Must be 15 characters or less'
-  }
-  if (!values.selectText) {
-    errors.selectText = 'Required'
-  } else if (values.selectText.length > 15) {
-    errors.selectText = 'Must be 15 characters or less'
-  }
-  return errors
-};
-
-const warn = values => {
-  const warnings: any = {};
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
-  return warnings
-};
-
-@reduxForm({
-  form: 'simple', // a unique identifier for this form
-  warn,
-  validate,
-  initialValues: {
-    merchantNo: 112500000000367
-  }
-})
 @withStyles(styles)
 @autoBind
 export class FormContainer extends React.PureComponent<FormProps, any> {
