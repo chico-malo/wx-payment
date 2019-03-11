@@ -26,7 +26,8 @@ export const settleSearch: Array<FieldGroupItemProps> = [{
       type: 'number'
     }, {
       label: lang.fundsSettlement.auditNumber,
-      name: 'auditNumber'
+      name: 'auditNumber',
+      type: 'number'
     }, {
       label: lang.fundsSettlement.settleAt,
       name: 'settleAt',
