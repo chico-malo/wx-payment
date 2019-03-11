@@ -2,9 +2,6 @@ import * as React from "react";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import { Grid, Toolbar, Typography } from "@material-ui/core";
 import classNames from 'classnames';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import LibraryAdd from '@material-ui/icons/LibraryAdd';
 import { withStyles } from "../../utils/withStyles";
 import { ButtonItem, TopButton } from '../Button/TopButton';
 
@@ -15,17 +12,31 @@ import { ButtonItem, TopButton } from '../Button/TopButton';
  * 表单头部扩展bar，结合按钮组
  */
 
-export interface TableToolbar {
+export interface TableButtonProps {
+  update: Array<ButtonItem>;
+  common: Array<ButtonItem>;
+}
+
+export interface AdditionalTableToolbarProps {
+  /**
+   * 表格标题
+   */
+  tableTitle: string;
+  /**
+   * table按钮配置
+   */
+  tableButton?: TableButtonProps;
+}
+
+export interface ParentTableToolbarProps {
   classes?: any;
   /**
    * 选择数量
    */
   numSelected: number;
-  /**
-   * 表格标题
-   */
-  tableTitle: string;
 }
+
+export type TableToolbar = AdditionalTableToolbarProps & ParentTableToolbarProps;
 
 const toolbarStyles = theme => ({
   root: {
@@ -55,21 +66,21 @@ const toolbarStyles = theme => ({
 @withStyles(toolbarStyles)
 export class EnhancedTableToolbar extends React.PureComponent<TableToolbar, any> {
 
-  renderButton() {
+  renderButton(tableButton: TableButtonProps) {
     const {numSelected, classes} = this.props;
-    const updateConfig: Array<ButtonItem> = [{
-      name: '编辑',
-      icon: EditIcon
-    }, {
-      name: '删除',
-      icon: DeleteIcon
-    }];
-
-    const commonConfig: Array<ButtonItem> = [{
-      name: '新增',
-      icon: LibraryAdd
-    }];
-    const config = numSelected > 0 ? updateConfig : commonConfig;
+    // const updateConfig: Array<ButtonItem> = [{
+    //   name: '编辑',
+    //   icon: EditIcon
+    // }, {
+    //   name: '删除',
+    //   icon: DeleteIcon
+    // }];
+    //
+    // const commonConfig: Array<ButtonItem> = [{
+    //   name: '新增',
+    //   icon: LibraryAdd
+    // }];
+    const config = numSelected > 0 ? tableButton.update : tableButton.common;
     return (
       <Grid item
             className={classes.actions}>
@@ -83,7 +94,7 @@ export class EnhancedTableToolbar extends React.PureComponent<TableToolbar, any>
   }
 
   render() {
-    const {numSelected, classes, tableTitle} = this.props;
+    const {numSelected, classes, tableTitle, tableButton} = this.props;
     return (
       <Toolbar className={classNames(classes.root, {
         [classes.highlight]: numSelected > 0
@@ -106,7 +117,7 @@ export class EnhancedTableToolbar extends React.PureComponent<TableToolbar, any>
               </Typography>
             )}
           </Grid>
-          {this.renderButton()}
+          {tableButton && this.renderButton(tableButton)}
         </Grid>
       </Toolbar>
     );
