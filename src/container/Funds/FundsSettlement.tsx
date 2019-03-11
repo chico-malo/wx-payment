@@ -5,6 +5,7 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form'
 import { FormContainer } from '../../component/Form';
 import { TableConstant } from '../../component/Table';
 import { settleSearch } from './config/Search';
@@ -13,6 +14,37 @@ import { autoBind } from '@sitb/wbs/autoBind';
 import { getActions } from '../../core/store';
 import { momentUtils } from '../../utils/momentFormat';
 
+const validate = values => {
+  const errors: any = {};
+  if (!values.username) {
+    errors.username = 'Required'
+  } else if (values.username.length > 15) {
+    errors.username = 'Must be 15 characters or less'
+  }
+  if (!values.selectText) {
+    errors.selectText = 'Required'
+  } else if (values.selectText.length > 15) {
+    errors.selectText = 'Must be 15 characters or less'
+  }
+  return errors
+};
+
+const warn = values => {
+  const warnings: any = {};
+  if (values.age < 19) {
+    warnings.age = 'Hmm, you seem a bit young...'
+  }
+  return warnings
+};
+
+@reduxForm({
+  form: 'simple', // a unique identifier for this form
+  warn,
+  validate,
+  initialValues: {
+    merchantNo: 112500000000367
+  }
+})
 @connect(({fundsSettlement}) => ({
   page: fundsSettlement.page,
   processing: fundsSettlement.processing
@@ -49,6 +81,7 @@ export class FundsSettlement extends React.PureComponent<any, any> {
         <FormContainer fieldGroups={settleSearch}
                        formSubmitProcessing={processing}
                        formSubmitButtonProps={{disabled: false}}
+                       handleSubmit={this.props.handleSubmit}
                        onSubmit={this.onSubmit}
         />
         <TableConstant dataResource={page.content}

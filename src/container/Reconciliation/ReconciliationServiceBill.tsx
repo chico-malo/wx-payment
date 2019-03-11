@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
 import { FormContainer } from '../../component/Form';
-import { searchBillDown } from './config/searchBillDown';
+import { settleSearch } from '../Funds/config/Search';
 
 @autoBind
 export class ReconciliationServiceBill extends React.Component<any, any> {
@@ -19,7 +19,7 @@ export class ReconciliationServiceBill extends React.Component<any, any> {
 
     return (
       <React.Fragment>
-        <FormContainer fieldGroups={searchBillDown}
+        <FormContainer fieldGroups={settleSearch}
                        formSubmitProcessing={false}
                        onSubmit={this.onSubmit}
         />
