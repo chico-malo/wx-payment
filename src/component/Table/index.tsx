@@ -9,11 +9,11 @@ import { Checkbox, Paper, Radio, Table, TableBody, TableCell, TablePagination, T
 import { autoBind } from "veigar/autoBind";
 
 import { withStyles } from '../../utils/withStyles';
-import { EnhancedTableToolbar } from './EnhancedTableToolbar';
+import { AdditionalTableToolbarProps, EnhancedTableToolbar } from './EnhancedTableToolbar';
 import { ColumnsItem, EnhancedTableHead, SelectionItem } from "./EnhancedTableHead";
 import { lang } from '../../constants/zh-cn';
 
-export interface TableProps {
+export interface AdditionalTableProps {
   classes?: any;
   /**
    * 表格展示数据
@@ -27,11 +27,9 @@ export interface TableProps {
    * 表格选择器配置
    */
   selection?: SelectionItem;
-  /**
-   * 表格标题
-   */
-  tableTitle: string;
 }
+
+export type TableProps = AdditionalTableProps & AdditionalTableToolbarProps
 
 const styles = theme => ({
   root: {
@@ -78,6 +76,11 @@ export class TableConstant extends React.Component<TableProps, any> {
    * @param selectionType    选择器类型
    */
   handleTableItemClick(event, item: ColumnsItem, selectionType) {
+    const {selection} = this.props;
+    // 如果没有配置selection props，不作表单row操作
+    if (!selection || !selection.type) {
+      return;
+    }
     // 获取单选  多选 flag
     const {isRadioStatus} = this.state;
     const selected: Array<any> = this.state.selected;
@@ -243,7 +246,7 @@ export class TableConstant extends React.Component<TableProps, any> {
   }
 
   render() {
-    const {classes, dataResource, columns, selection, tableTitle} = this.props;
+    const {classes, dataResource, columns, selection, tableTitle, tableButton} = this.props;
     const {order, orderBy, selected, rowsPerPage, page} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, dataResource.length - page * rowsPerPage);
     // 获取 选择器类型
@@ -252,6 +255,7 @@ export class TableConstant extends React.Component<TableProps, any> {
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length}
                               tableTitle={tableTitle}
+                              tableButton={tableButton}
         />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
