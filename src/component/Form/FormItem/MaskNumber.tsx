@@ -6,14 +6,28 @@
 import * as React from 'react';
 import MaskedInput from 'react-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import emailMask from 'text-mask-addons/dist/emailMask'
 import MateRialField from '@material-ui/core/TextField';
 
 function TextMaskCustom(props) {
-  const {inputRef, ...other} = props;
-  const numberMask = createNumberMask({
-    prefix: '¥ ',
-    suffix: ''
+  const {inputRef, type, ...other} = props;
+  // 默认number配置
+  let numberMask = createNumberMask({
+    prefix: '',
+    suffix: '',
+    includeThousandsSeparator: false
   });
+  // 金额表单
+  if (type === 'money') {
+    numberMask = createNumberMask({
+      prefix: '¥ ',
+      suffix: ''
+    });
+  }
+  // 邮箱表单
+  if (type === 'email') {
+    numberMask = emailMask;
+  }
   return (
     <MaskedInput{...other}
                 ref={ref => {
@@ -32,7 +46,8 @@ export class MaskNumber extends React.Component<any, any> {
       meta,
       label,
       variant,
-      style
+      style,
+      type
     } = this.props;
     // 是否存在错误验证信息
     const isError = meta && meta.touched && (meta.error || meta.warning);
@@ -44,6 +59,7 @@ export class MaskNumber extends React.Component<any, any> {
                      onChange={input && input.onChange}
                      error={Boolean(isError)}
                      helperText={isError}
+                     type={type}
                      InputProps={{
                        inputComponent: TextMaskCustom
                      }}

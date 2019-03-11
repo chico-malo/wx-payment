@@ -56,11 +56,18 @@ export class Field extends React.PureComponent<FieldProps, any> {
 
   filterField(props) {
     const {type, name, ...other} = props;
-    const component = type ? renderComponent[type] : renderComponent.text;
+    let component = renderComponent.text;
+    let fieldProps = {...other};
+    if (type === 'number' || type === 'email') {
+      component = MaskNumber;
+      fieldProps = {...fieldProps, type}
+    } else {
+      component = type ? renderComponent[type] : renderComponent.text;
+    }
     return (
       <ReduxField name={name}
                   component={component}
-                  props={...other}
+                  props={...fieldProps}
       />
     )
   }
