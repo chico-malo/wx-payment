@@ -24,7 +24,7 @@ export default compose((state = DEFAULT_STATE, actions) => {
     case types.queryComplete: {
       return {
         ...state,
-        page: success && payload || state.page,
+        page: success && payload || [],
         processing: false
       };
     }
