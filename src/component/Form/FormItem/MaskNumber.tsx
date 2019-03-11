@@ -15,6 +15,8 @@ function TextMaskCustom(props) {
   let numberMask = createNumberMask({
     prefix: '',
     suffix: '',
+    decimalLimit: 2,
+    allowDecimal: true,
     includeThousandsSeparator: false
   });
   // 金额表单
