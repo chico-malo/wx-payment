@@ -48,14 +48,16 @@ export class ReconciliationBillDown extends React.Component<any, any> {
   }
 
   render() {
+    const {processing, ...other} = this.props;
+    const formProps: any = {...other};
 
     return (
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
-                       formSubmitProcessing={false}
-                       handleSubmit={this.props.handleSubmit}
+                       formSubmitProcessing={processing}
                        formSubmitButtonName="下载"
                        onSubmit={this.onSubmit}
+                       {...formProps}
         />
       </React.Fragment>
     );

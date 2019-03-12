@@ -111,8 +111,10 @@ export class Login extends React.Component<any, any> {
   }
 
   render() {
-    const {classes, loginProcessing, handleSubmit} = this.props;
+    const {classes, loginProcessing, ...other} = this.props;
     const {countDown} = this.state;
+    const formProps: any = {...other};
+    // login 表单
     const fieldConfig: Array<FieldGroupItemProps> = [{
       group: [{
         fields: [{
@@ -152,7 +154,6 @@ export class Login extends React.Component<any, any> {
           </Grid>
           <FormContainer fieldGroups={fieldConfig}
                          onSubmit={this.handleSubmit}
-                         handleSubmit={handleSubmit}
                          unifiedVariant='standard'
                          layout="vertical"
                          reseated={false}
@@ -160,6 +161,7 @@ export class Login extends React.Component<any, any> {
                          formSubmitProcessing={loginProcessing}
                          formContainerProps={{elevation: 0}}
                          formSubmitButtonProps={{style: {width: '100%', margin: 0}, size: "large"}}
+                         {...formProps}
           />
         </Paper>
       </Grid>

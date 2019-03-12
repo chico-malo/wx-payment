@@ -15,7 +15,7 @@ export interface FormReduxProps {
   /**
    * 以下是reduxForm部分的props，依赖中没有定义，更多详细https://redux-form.com/6.6.2/docs/api/props.md/
    */
-  reset?: () => void;
+  reset: () => void;
   handleSubmit: (onSubmit) => any;
   // onSubmit函数调用时才触发的 表单拦截
   submitting?: boolean;
@@ -108,7 +108,7 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
           <Field variant={unifiedVariant}
                  layout={layout}
                  key={idx}
-                 handleSubmit={handleSubmit && handleSubmit}
+                 handleSubmit={handleSubmit}
                  {...field}
           />
         ))}
@@ -139,7 +139,7 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
                 color="primary"
                 className={classes.button}
                 disabled={pristine || submitting}
-                onClick={handleSubmit && handleSubmit(onSubmit)}
+                onClick={handleSubmit(onSubmit)}
                 {...formSubmitButtonProps}
         >
           {

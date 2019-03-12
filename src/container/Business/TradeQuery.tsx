@@ -48,14 +48,16 @@ export class TradeQuery extends React.Component<any, any> {
   }
 
   render() {
-    const {page, processing, handleSubmit} = this.props;
+    const {page, processing, ...other} = this.props;
+    // 传递formRedux 所传递的props
+    const formProps: any = {...other};
     return (
       <React.Fragment>
         <FormContainer fieldGroups={searchTrade}
                        formSubmitProcessing={processing}
-                       handleSubmit={handleSubmit}
                        formSubmitButtonProps={{disabled: false}}
                        onSubmit={this.onSubmit}
+                       {...formProps}
         />
         <TableConstant dataResource={page.content}
                        processing={processing}

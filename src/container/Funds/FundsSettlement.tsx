@@ -75,14 +75,16 @@ export class FundsSettlement extends React.PureComponent<any, any> {
   }
 
   render() {
-    const {page, processing} = this.props;
+    const {page, processing, ...other} = this.props;
+    const formProps: any = {...other};
+
     return (
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
                        formSubmitProcessing={processing}
                        formSubmitButtonProps={{disabled: false}}
-                       handleSubmit={this.props.handleSubmit}
                        onSubmit={this.onSubmit}
+                       {...formProps}
         />
         <TableConstant dataResource={page.content}
                        columns={settleColumns}
