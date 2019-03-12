@@ -5,15 +5,22 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Grid, Paper, Typography } from '@material-ui/core';
+import { reduxForm } from 'redux-form'
+
+import { autoBind } from '@sitb/wbs/autoBind';
+import { warn } from '@sitb/wbs/mui/Toast';
+import { withStyles } from '@sitb/wbs/mui/withStyles';
+
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/es/Grid';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 
-import { withStyles } from '../../utils/withStyles';
 import { lang } from '../../constants/zh-cn';
-import { autoBind } from '@sitb/wbs/autoBind';
 import { getActions } from '../../core/store';
-import { warn } from '@sitb/wbs/mui/Toast';
 import { FieldGroupItemProps, FormContainer } from '../../component/Form';
+
 
 const styles: any = theme => ({
   root: {
@@ -43,6 +50,10 @@ const styles: any = theme => ({
   }
 });
 
+
+@reduxForm({
+  form: 'login'
+})
 @connect(({session}) => ({
   countDownProcessing: session.countDownProcessing,
   loginProcessing: session.loginProcessing
@@ -50,6 +61,7 @@ const styles: any = theme => ({
 @withStyles(styles)
 @autoBind
 export class Login extends React.Component<any, any> {
+
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -99,7 +111,7 @@ export class Login extends React.Component<any, any> {
   }
 
   render() {
-    const {classes, loginProcessing} = this.props;
+    const {classes, loginProcessing, handleSubmit} = this.props;
     const {countDown} = this.state;
     const fieldConfig: Array<FieldGroupItemProps> = [{
       group: [{
@@ -140,6 +152,7 @@ export class Login extends React.Component<any, any> {
           </Grid>
           <FormContainer fieldGroups={fieldConfig}
                          onSubmit={this.handleSubmit}
+                         handleSubmit={handleSubmit}
                          unifiedVariant='standard'
                          layout="vertical"
                          reseated={false}
