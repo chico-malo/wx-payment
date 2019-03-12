@@ -104,7 +104,7 @@ export class Field extends React.PureComponent<FieldProps, any> {
               key={index}
               container
               justify={GridJustify}
-              style={{height: 85, width: '100%', overflow: 'hidden'}}
+              style={{height: 95, width: '100%', overflow: 'hidden'}}
               {...layoutProps}
         >
           {
