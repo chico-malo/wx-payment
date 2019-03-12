@@ -78,8 +78,11 @@ export const menu = {
 export const requestMsg = {
   UNKNOWN: '我也不知道发生了什么:(',
   '0000': '请求处理成功',
-  login: {
+  send: {
     '3000': '商户号无效'
+  },
+  login: {
+    '3000': '验证码无效或错误'
   },
   fundsSettlement: {
     '3000': '请选择商户号进行搜索'
