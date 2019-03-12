@@ -56,9 +56,10 @@ export function startSend(action$) {
       url: `${URL.send}?merchantNo=${payload}`,
       type: types.sendComplete
     })),
-    tap(RequestToast({prefix: 'login', errorTip: true})))
+    tap(RequestToast({prefix: 'send', errorTip: true})))
 }
 
+// 绑定商户
 export function startBind(action$) {
   return action$.pipe(
     ofType(types.startBind),
@@ -68,7 +69,7 @@ export function startBind(action$) {
       body: JSON.stringify(payload),
       type: types.bindComplete
     })),
-    tap(RequestToast()),
+    tap(RequestToast({prefix: 'login', errorTip: true})),
     tap(({success, status}) => (success && status === '0000') && location.reload())
   )
 }
