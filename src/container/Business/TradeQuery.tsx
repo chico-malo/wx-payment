@@ -5,38 +5,27 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { TableConstant } from "../../component/Table";
-import { FormContainer } from '../../component/Form';
-import { columnsTrade } from './config/columnsTrade';
-import { searchTrade } from './config/searchTrade';
 import { autoBind } from '@sitb/wbs/autoBind';
 import { reduxForm } from 'redux-form'
+
+import { TableConstant } from "../../component/Table";
+import { FormContainer } from '../../component/Form';
 import { momentUtils } from '../../utils/momentFormat';
 import { getActions } from '../../core/store';
 import { firstMerchantNo } from '../../constants/select/merchantNo';
-import { lang } from '../../constants/zh-cn';
 import { arrayUtils } from '../../utils/arrayUtils';
 import { dataSourceUtils } from '../../utils/dataSourceUtils';
-
-const validate = values => {
-  const errors: any = {};
-  // 检验商户号
-  if (!values.merchantNo) {
-    errors.merchantNo = lang.pleaseInput(lang.merchantNo);
-  }
-  if (!values.businessTypes) {
-    errors.businessTypes = lang.pleaseInput(lang.businessType);
-  }
-  return errors;
-};
+import { businessTypeDeepClone } from '../../constants/select/businessType';
+import { validate } from './config/validate';
+import { initialValues } from './config/initialValues';
+import { columnsTrade } from './config/columnsTrade';
+import { searchTrade } from './config/searchTrade';
+import { searchKey } from './config/searchKey';
 
 @reduxForm({
   form: 'tradeQuery', // a unique identifier for this form
   validate,
-  initialValues: {
-    merchantNo: firstMerchantNo(),
-    businessTypes: 'ALL'
-  }
+  initialValues
 })
 @connect(({trade}) => ({
   processing: trade.processing,
@@ -55,11 +44,17 @@ export class TradeQuery extends React.Component<any, any> {
    */
   handleSearch(params: any = {
     merchantNo: firstMerchantNo(),
-    businessTypes: 'REFUND,CANCEL'
+    businessTypes: searchKey.normal
   }): void {
     // 深拷贝搜索参数，合并默认参数并转换成数组去重
     let newParams = dataSourceUtils.deepClone(params);
-    let DEFAULT_TYPE = `REFUND,CANCEL,${newParams.businessTypes || ''}`;
+    // 过滤type，调出除查询的其他业务类型，并且判断不等于默认值才进行过滤。
+    let filterType = '';
+    if (newParams.businessTypes !== searchKey.normal) {
+      filterType = businessTypeDeepClone(newParams.businessTypes, 'string');
+    }
+    // 合并type，转换成数组去重
+    let DEFAULT_TYPE = `${searchKey.normal},${filterType}`;
     let ArrayType = DEFAULT_TYPE.split(',');
     let newBusinessTypes: any = arrayUtils.unique(ArrayType);
     newParams.businessTypes = newBusinessTypes;
