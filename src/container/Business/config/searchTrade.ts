@@ -22,11 +22,11 @@ export const searchTrade: Array<FieldGroupItemProps> = [{
       type: 'select',
       options: businessTypeOptions
     }, {
-      label: lang.fundsSettlement.startAmount,
+      label: lang.trade.startAmount,
       name: 'startAmount',
       type: 'number'
     }, {
-      label: lang.fundsSettlement.endAmount,
+      label: lang.trade.endAmount,
       name: 'endAmount',
       type: 'number'
     }, {

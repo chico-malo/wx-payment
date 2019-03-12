@@ -55,6 +55,8 @@ export const lang = {
   trade: {
     status: '交易状态',
     subAuditNumber: '商户流水号',
+    startAmount: '交易金额区间开始',
+    endAmount: '交易金额区间结束',
     refundAmount: '退货金额',
     paymentAt: '支付时间',
     close: '交易关闭',
