@@ -8,12 +8,15 @@ import { autoBind } from "veigar/autoBind";
 import { reduxForm } from 'redux-form'
 import { FormContainer } from '../../component/Form';
 import { settleSearch } from '../Funds/config/Search';
+import { validate } from '../Funds/config/validate';
+import { firstMerchantNo } from '../../constants/select/merchantNo';
 
 
 @reduxForm({
   form: 'reconciliationServiceBill', // a unique identifier for this form
+  validate,
   initialValues: {
-    merchantNo: 112500000000367
+    merchantNo: firstMerchantNo()
   }
 })
 @autoBind

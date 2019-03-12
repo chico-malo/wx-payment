@@ -8,36 +8,14 @@ import { autoBind } from "veigar/autoBind";
 import { FormContainer } from '../../component/Form';
 import { reduxForm } from 'redux-form'
 import { settleSearch } from '../Funds/config/Search';
-
-const validate = values => {
-  const errors: any = {};
-  if (!values.username) {
-    errors.username = 'Required'
-  } else if (values.username.length > 15) {
-    errors.username = 'Must be 15 characters or less'
-  }
-  if (!values.selectText) {
-    errors.selectText = 'Required'
-  } else if (values.selectText.length > 15) {
-    errors.selectText = 'Must be 15 characters or less'
-  }
-  return errors
-};
-
-const warn = values => {
-  const warnings: any = {};
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
-  return warnings
-};
+import { firstMerchantNo } from '../../constants/select/merchantNo';
+import { validate } from '../Funds/config/validate';
 
 @reduxForm({
   form: 'simple', // a unique identifier for this form
-  warn,
   validate,
   initialValues: {
-    merchantNo: 112500000000367
+    merchantNo: firstMerchantNo()
   }
 })
 @autoBind

@@ -14,28 +14,9 @@ import { settleSearch } from './config/Search';
 import { settleColumns } from './config/Columns'
 import { getActions } from '../../core/store';
 import { momentUtils } from '../../utils/momentFormat';
-import { lang } from '../../constants/zh-cn';
 import { firstMerchantNo } from '../../constants/select/merchantNo';
+import { validate } from './config/validate';
 
-// 表单验证
-const validate = values => {
-  const errors: any = {};
-  // 校验商户号
-  if (!values.merchantNo) {
-    errors.merchantNo = lang.pleaseInput(lang.merchantNo);
-  }
-  // 结束金额 跟开始金额为成对出现
-  if ((values.startAmount && !values.endAmount) || (!values.startAmount && values.endAmount)) {
-    errors.startAmount = lang.pleaseInput('开始区间或结束区间');
-    errors.endAmount = lang.pleaseInput('开始区间或结束区间');
-  }
-  // 判断开始金额是否 大于 结束金额
-  if (Number(values.startAmount) > Number(values.endAmount)) {
-    errors.startAmount = '开始区间不能大于结束区间';
-    errors.endAmount = '开始区间不能大于结束区间';
-  }
-  return errors;
-};
 
 // 警告函数，不会阻止表单提交
 const warn = values => {
