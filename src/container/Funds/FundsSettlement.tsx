@@ -6,43 +6,49 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form'
+import { autoBind } from '@sitb/wbs/autoBind';
+
 import { FormContainer } from '../../component/Form';
 import { TableConstant } from '../../component/Table';
 import { settleSearch } from './config/Search';
-import { settleColumns } from './config/Columns';
-import { autoBind } from '@sitb/wbs/autoBind';
+import { settleColumns } from './config/Columns'
 import { getActions } from '../../core/store';
 import { momentUtils } from '../../utils/momentFormat';
+import { lang } from '../../constants/zh-cn';
+import { firstMerchantNo } from '../../constants/select/merchantNo';
 
+// 表单验证
 const validate = values => {
   const errors: any = {};
-  if (!values.username) {
-    errors.username = 'Required'
-  } else if (values.username.length > 15) {
-    errors.username = 'Must be 15 characters or less'
+  // 校验商户号
+  if (!values.merchantNo) {
+    errors.merchantNo = lang.pleaseInput(lang.merchantNo);
   }
-  if (!values.selectText) {
-    errors.selectText = 'Required'
-  } else if (values.selectText.length > 15) {
-    errors.selectText = 'Must be 15 characters or less'
+  // 结束金额 跟开始金额为成对出现
+  if ((values.startAmount && !values.endAmount) || (!values.startAmount && values.endAmount)) {
+    errors.startAmount = lang.pleaseInput('开始区间或结束区间');
+    errors.endAmount = lang.pleaseInput('开始区间或结束区间');
   }
-  return errors
+  // 判断开始金额是否 大于 结束金额
+  if (Number(values.startAmount) > Number(values.endAmount)) {
+    console.log(values.startAmount, values.endAmount);
+    errors.startAmount = '开始区间不能大于结束区间';
+    errors.endAmount = '开始区间不能大于结束区间';
+  }
+  return errors;
 };
 
+// 警告函数，不会阻止表单提交
 const warn = values => {
-  const warnings: any = {};
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
-  return warnings
+  return {};
 };
 
 @reduxForm({
-  form: 'simple', // a unique identifier for this form
+  form: 'fundsSettlement', // a unique identifier for this form
   warn,
   validate,
   initialValues: {
-    merchantNo: 112500000000367
+    merchantNo: firstMerchantNo()
   }
 })
 @connect(({fundsSettlement}) => ({
@@ -51,6 +57,7 @@ const warn = values => {
 }))
 @autoBind
 export class FundsSettlement extends React.PureComponent<any, any> {
+
   /**
    * 搜索方法
    * @param params 搜索参数
@@ -82,7 +89,6 @@ export class FundsSettlement extends React.PureComponent<any, any> {
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
                        formSubmitProcessing={processing}
-                       formSubmitButtonProps={{disabled: false}}
                        onSubmit={this.onSubmit}
                        {...formProps}
         />

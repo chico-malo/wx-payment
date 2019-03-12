@@ -18,6 +18,7 @@ export const lang = {
   createAt: '创建时间',
   updateAt: '修改时间',
   remark: '备注',
+  pleaseInput: key => `请输入您的${key}`,
 
   untreated: '未处理',
   success: '成功',
