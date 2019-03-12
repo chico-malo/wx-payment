@@ -21,6 +21,12 @@ export interface FormReduxProps {
   submitting?: boolean;
   // 表单为初始值时 为true
   pristine?: boolean;
+  // 表单为修改值是 为true
+  dirty?: boolean;
+  // 表单没有通过验证
+  invalid?: boolean;
+  // 表单通过验证
+  valid?: boolean;
 }
 
 export interface FieldGroupItemProps {
@@ -120,7 +126,7 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
    * 渲染按钮组
    */
   buttonGroup() {
-    const {classes, handleSubmit, pristine, submitting, reseated = true, onSubmit, formSubmitProcessing, formSubmitButtonProps, formSubmitButtonName = '搜索'} = this.props;
+    const {classes, handleSubmit, onSubmit, valid, reseated = true, formSubmitProcessing, formSubmitButtonProps, formSubmitButtonName = '搜索'} = this.props;
     return (
       <Grid container
             className={classes.buttonContainer}
@@ -138,8 +144,8 @@ export class FormContainer extends React.PureComponent<FormProps, any> {
         <Button variant="contained"
                 color="primary"
                 className={classes.button}
-                disabled={pristine || submitting}
-                onClick={handleSubmit(onSubmit)}
+                disabled={!valid}
+                onClick={valid && handleSubmit(onSubmit) || (() => undefined)}
                 {...formSubmitButtonProps}
         >
           {
