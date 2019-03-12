@@ -6,6 +6,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { autoBind } from "veigar/autoBind";
+import { reduxForm } from 'redux-form'
 import { TableConstant } from "../../component/Table";
 import { FormContainer } from '../../component/Form';
 import { columnsTrade } from './config/columnsTrade';
@@ -13,6 +14,13 @@ import { searchTrade } from './config/searchTrade';
 import { getActions } from '../../core/store';
 import { momentUtils } from '../../utils/momentFormat';
 
+
+@reduxForm({
+  form: 'tradeRefund', // a unique identifier for this form
+  initialValues: {
+    merchantNo: 112500000000367
+  }
+})
 @connect(({trade}) => ({
   processing: trade.processing,
   page: trade.page
@@ -40,10 +48,11 @@ export class TradeRefund extends React.Component<any, any> {
   }
 
   render() {
-    const {page, processing} = this.props;
+    const {page, processing, handleSubmit} = this.props;
     return (
       <React.Fragment>
         <FormContainer fieldGroups={searchTrade}
+                       handleSubmit={handleSubmit}
                        formSubmitButtonProps={{disabled: false}}
                        formSubmitProcessing={processing}
                        onSubmit={this.onSubmit}

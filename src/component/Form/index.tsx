@@ -11,12 +11,24 @@ import { Field, FieldProps, layoutProps, variantProps } from './Field';
 import { PaperProps } from '@material-ui/core/es/Paper';
 import { ButtonProps } from '@material-ui/core/Button';
 
+export interface FormReduxProps {
+  /**
+   * 以下是reduxForm部分的props，依赖中没有定义，更多详细https://redux-form.com/6.6.2/docs/api/props.md/
+   */
+  reset?: () => void;
+  handleSubmit: (onSubmit) => any;
+  // onSubmit函数调用时才触发的 表单拦截
+  submitting?: boolean;
+  // 表单为初始值时 为true
+  pristine?: boolean;
+}
 
 export interface FieldGroupItemProps {
   group: Array<FieldProps>
   title?: string
 }
 
+// 属于form表单的props
 export interface AdditionalForm {
   classes?: any;
   /**
@@ -47,19 +59,9 @@ export interface AdditionalForm {
   formSubmitButtonName?: string;
   formSubmitProcessing: boolean;
   onSubmit: (values) => void;
-
-  /**
-   * 以下是reduxForm部分的props，依赖中没有定义，更多详细https://redux-form.com/6.6.2/docs/api/props.md/
-   */
-  reset?: () => void;
-  handleSubmit?: (onSubmit) => any;
-  // onSubmit函数调用时才触发的 表单拦截
-  submitting?: boolean;
-  // 表单为初始值时 为true
-  pristine?: boolean;
 }
 
-export type FormProps = AdditionalForm;
+export type FormProps = AdditionalForm & FormReduxProps;
 
 const styles = theme => ({
   paper: {

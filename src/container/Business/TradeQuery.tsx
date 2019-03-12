@@ -10,9 +10,17 @@ import { FormContainer } from '../../component/Form';
 import { columnsTrade } from './config/columnsTrade';
 import { searchTrade } from './config/searchTrade';
 import { autoBind } from '@sitb/wbs/autoBind';
+import { reduxForm } from 'redux-form'
 import { momentUtils } from '../../utils/momentFormat';
 import { getActions } from '../../core/store';
 
+
+@reduxForm({
+  form: 'tradeQuery', // a unique identifier for this form
+  initialValues: {
+    merchantNo: 112500000000367
+  }
+})
 @connect(({trade}) => ({
   processing: trade.processing,
   page: trade.page
@@ -40,11 +48,12 @@ export class TradeQuery extends React.Component<any, any> {
   }
 
   render() {
-    const {page, processing} = this.props;
+    const {page, processing, handleSubmit} = this.props;
     return (
       <React.Fragment>
         <FormContainer fieldGroups={searchTrade}
                        formSubmitProcessing={processing}
+                       handleSubmit={handleSubmit}
                        formSubmitButtonProps={{disabled: false}}
                        onSubmit={this.onSubmit}
         />
