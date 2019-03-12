@@ -22,7 +22,7 @@ export class SessionServices {
   static getUser() {
     let DEFAULT_user = sessionStorage.getItem(SessionKey.login_user);
     DEFAULT_user = DEFAULT_user && JSON.parse(DEFAULT_user);
-    return DEFAULT_user || [];
+    return DEFAULT_user;
   }
 
   /**

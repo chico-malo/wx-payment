@@ -33,11 +33,12 @@ export const firstMerchantNo = (): string => {
   // 获取缓存的商户信息
   const storageMerchant: any = SessionServices.getUser();
   if (storageMerchant && Array.isArray(storageMerchant)) {
+    const merchant = storageMerchant[0];
     // 打印错误logo
-    if (!storageMerchant[0].merchantNo || !storageMerchant[0].merchantNo) {
+    if (!merchant || (merchant && (!merchant.merchantNo || !merchant.merchantNo))) {
       console.warn('first storageMerchant Build failed！');
     }
-    return storageMerchant[0].merchantNo;
+    return merchant.merchantNo;
   }
   return '';
 };

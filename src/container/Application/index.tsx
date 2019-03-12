@@ -38,6 +38,9 @@ export class Index extends React.Component<any, any> {
   }
 
   render() {
-    return (SessionServices.getAccessToken() && SessionServices.getUser().length > 0) && <Application/> || <Login/>;
+    const isMerchant: any = SessionServices.getUser();
+    const isToken: any = SessionServices.getAccessToken();
+    // 判断是否 认证、是否有绑定商户
+    return (isToken && (isMerchant && isMerchant.length > 0)) && <Application/> || <Login/>;
   }
 }
