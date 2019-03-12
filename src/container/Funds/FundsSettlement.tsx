@@ -57,11 +57,15 @@ const warn = values => {
 @autoBind
 export class FundsSettlement extends React.PureComponent<any, any> {
 
+  componentWillMount(): void {
+    this.handleSearch();
+  }
+
   /**
    * 搜索方法
    * @param params 搜索参数
    */
-  handleSearch(params: object = {}): void {
+  handleSearch(params: object = {merchantNo: firstMerchantNo()}): void {
     getActions().fundsSettlement.startQuery(params);
     console.log('search =>', params);
   }
