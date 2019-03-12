@@ -13,12 +13,29 @@ import { autoBind } from '@sitb/wbs/autoBind';
 import { reduxForm } from 'redux-form'
 import { momentUtils } from '../../utils/momentFormat';
 import { getActions } from '../../core/store';
+import { firstMerchantNo } from '../../constants/select/merchantNo';
+import { lang } from '../../constants/zh-cn';
+import { arrayUtils } from '../../utils/arrayUtils';
+import { dataSourceUtils } from '../../utils/dataSourceUtils';
 
+const validate = values => {
+  const errors: any = {};
+  // 检验商户号
+  if (!values.merchantNo) {
+    errors.merchantNo = lang.pleaseInput(lang.merchantNo);
+  }
+  if (!values.businessTypes) {
+    errors.businessTypes = lang.pleaseInput(lang.businessType);
+  }
+  return errors;
+};
 
 @reduxForm({
   form: 'tradeQuery', // a unique identifier for this form
+  validate,
   initialValues: {
-    merchantNo: 112500000000367
+    merchantNo: firstMerchantNo(),
+    businessTypes: 'ALL'
   }
 })
 @connect(({trade}) => ({
@@ -28,13 +45,27 @@ import { getActions } from '../../core/store';
 @autoBind
 export class TradeQuery extends React.Component<any, any> {
 
+  componentWillMount(): void {
+    this.handleSearch();
+  }
+
   /**
    * 搜索方法
    * @param params 搜索参数
    */
-  handleSearch(params: object = {}): void {
-    getActions().trade.startQuery(params);
-    console.log('search =>', params);
+  handleSearch(params: any = {
+    merchantNo: firstMerchantNo(),
+    businessTypes: 'REFUND,CANCEL'
+  }): void {
+    // 深拷贝搜索参数，合并默认参数并转换成数组去重
+    let newParams = dataSourceUtils.deepClone(params);
+    let DEFAULT_TYPE = `REFUND,CANCEL,${newParams.businessTypes || ''}`;
+    let ArrayType = DEFAULT_TYPE.split(',');
+    let newBusinessTypes: any = arrayUtils.unique(ArrayType);
+    newParams.businessTypes = newBusinessTypes;
+
+    getActions().trade.startQuery(newParams);
+    console.log('search =>', newParams);
   }
 
   onSubmit(params) {
@@ -55,7 +86,6 @@ export class TradeQuery extends React.Component<any, any> {
       <React.Fragment>
         <FormContainer fieldGroups={searchTrade}
                        formSubmitProcessing={processing}
-                       formSubmitButtonProps={{disabled: false}}
                        onSubmit={this.onSubmit}
                        {...formProps}
         />
