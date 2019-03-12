@@ -25,3 +25,19 @@ export const merchantNoOptions = (): Array<SelectItemProps> => {
   }
   return DEFAULT_OPTIONS;
 };
+
+/**
+ * 获取第一个绑定的商户号
+ */
+export const firstMerchantNo = (): string => {
+  // 获取缓存的商户信息
+  const storageMerchant: any = SessionServices.getUser();
+  if (storageMerchant && Array.isArray(storageMerchant)) {
+    // 打印错误logo
+    if (!storageMerchant[0].merchantNo || !storageMerchant[0].merchantNo) {
+      console.warn('first storageMerchant Build failed！');
+    }
+    return storageMerchant[0].merchantNo;
+  }
+  return '';
+};
