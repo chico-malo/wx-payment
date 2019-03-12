@@ -31,7 +31,6 @@ const validate = values => {
   }
   // 判断开始金额是否 大于 结束金额
   if (Number(values.startAmount) > Number(values.endAmount)) {
-    console.log(values.startAmount, values.endAmount);
     errors.startAmount = '开始区间不能大于结束区间';
     errors.endAmount = '开始区间不能大于结束区间';
   }
