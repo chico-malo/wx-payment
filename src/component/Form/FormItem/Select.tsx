@@ -29,6 +29,9 @@ export interface SelectProps {
 const styles = theme => ({
   control: {
     width: '100%'
+  },
+  helperText: {
+    color: 'red'
   }
 });
 
@@ -107,7 +110,7 @@ export class Select extends React.Component<any, any> {
           {this.renderOptionDOM(options)}
         </MaterialSelect>
         {
-          isError && <FormHelperText>{isError}</FormHelperText>
+          isError && <FormHelperText className={classes.helperText}>{isError}</FormHelperText>
         }
       </FormControl>
     );
