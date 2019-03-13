@@ -18,6 +18,8 @@ export interface RequestParams {
   body?: any;
   // rxjs需要的结束流动作
   type?: string;
+  // 支持下载
+  upload?: boolean;
 }
 
 /**

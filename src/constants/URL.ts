@@ -10,6 +10,8 @@ export default {
 
   session: `${api}/session`,
   settles: `${api}/settles`,
+  downloadSettle: `${api}/download/payment-settle`,
+
   send: `${api}/merchant-check-value`,
 
   login: `${authApi}/oauth/authorize`

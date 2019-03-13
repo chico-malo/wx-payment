@@ -13,6 +13,26 @@ export const fundsSettlement: any = create('funds-settlement', {
   queryComplete: ''
 });
 
+// 结算账单下载
+export const reconciliation: any = create('reconciliation', {
+  /**
+   * 创建表单
+   */
+  startCreate: '',
+  createComplete: '',
+  /**
+   * 查询文件是否创建成功
+   */
+  startQuery: '',
+  queryComplete: '',
+  /**
+   * 下载文件
+   */
+  startDownload: '',
+  downLoadComplete: ''
+});
+
+
 // 交易查询
 export const trade: any = create('trade', {
   startQuery: '',

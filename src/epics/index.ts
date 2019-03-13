@@ -3,6 +3,7 @@ import * as root from './root';
 import * as session from './session';
 
 import * as fundsSettlement from './fundsSettlement';
+import * as reconciliation from './reconciliation';
 import * as trade from './trade';
 
 /**
@@ -14,5 +15,6 @@ export {
   session,
 
   fundsSettlement,
+  reconciliation,
   trade
 }
