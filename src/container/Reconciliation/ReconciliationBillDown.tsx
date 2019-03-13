@@ -26,16 +26,17 @@ import { getActions } from '../../core/store';
 @autoBind
 export class ReconciliationBillDown extends React.Component<any, any> {
 
-  onSubmit(e) {
-    console.log(e);
-    getActions().reconciliation.startCreate();
+  /**
+   * 下载
+   * @param params  请求参数
+   */
+  onSubmit(params) {
+    getActions().reconciliation.startCreate(params);
   }
-
 
   render() {
     const {processing, ...other} = this.props;
     const formProps: any = {...other};
-
     return (
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
