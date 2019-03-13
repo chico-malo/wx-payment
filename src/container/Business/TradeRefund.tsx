@@ -49,9 +49,10 @@ export class TradeRefund extends React.Component<any, any> {
     // 深拷贝搜索参数，合并默认参数并转换成数组去重
     let newParams = dataSourceUtils.deepClone(params);
     // 过滤type，调出除查询的其他业务类型，并且判断不等于默认值才进行过滤。
-    let filterType = '';
-    if (newParams.businessTypes !== searchKey.cancel) {
-      filterType = businessTypeDeepClone(newParams.businessTypes, 'string');
+    let filterType = businessTypeDeepClone(newParams.businessTypes, 'string');
+    // 如果类型为默认值  ALL不需要过滤的type
+    if ((newParams.businessTypes === searchKey.normal) || (newParams.businessTypes === 'ALL')) {
+      filterType = '';
     }
     // 合并type，转换成数组去重
     let DEFAULT_TYPE = `${searchKey.cancel},${filterType}`;
