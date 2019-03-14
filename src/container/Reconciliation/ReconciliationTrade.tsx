@@ -43,6 +43,7 @@ export class ReconciliationTrade extends React.Component<any, any> {
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
                        formSubmitProcessing={processing}
+                       formSubmitButtonName="下载"
                        onSubmit={this.onSubmit}
                        {...formProps}
         />
