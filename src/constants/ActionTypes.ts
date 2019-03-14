@@ -14,7 +14,7 @@ export const fundsSettlement: any = create('funds-settlement', {
 });
 
 // 结算账单下载
-export const reconciliation: any = create('reconciliation', {
+export const reconciliationSettle: any = create('reconciliation-settle', {
   /**
    * 创建表单
    */
@@ -32,6 +32,14 @@ export const reconciliation: any = create('reconciliation', {
   downLoadComplete: ''
 });
 
+// 交易下载
+export const reconciliationTrade: any = create('reconciliation-trade', {
+  /**
+   * 下载文件
+   */
+  startDownload: '',
+  downLoadComplete: ''
+});
 
 // 交易查询
 export const trade: any = create('trade', {

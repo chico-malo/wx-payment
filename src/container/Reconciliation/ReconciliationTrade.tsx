@@ -5,43 +5,44 @@
  */
 import * as React from 'react';
 import { autoBind } from "veigar/autoBind";
+import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux';
 import { FormContainer } from '../../component/Form';
-import { reduxForm } from 'redux-form'
 import { settleSearch } from '../Funds/config/Search';
-import { firstMerchantNo } from '../../constants/select/merchantNo';
 import { validate } from '../Funds/config/validate';
+import { firstMerchantNo } from '../../constants/select/merchantNo';
 import { getActions } from '../../core/store';
 
+
 @reduxForm({
-  form: 'reconciliationBillDown', // a unique identifier for this form
+  form: 'reconciliationServiceBill', // a unique identifier for this form
   validate,
   initialValues: {
     merchantNo: firstMerchantNo()
   }
 })
-@connect(({reconciliation}) => ({
-  processing: reconciliation.processing
+@connect(({reconciliationTrade}) => ({
+  processing: reconciliationTrade.processing
 }))
 @autoBind
-export class ReconciliationBillDown extends React.Component<any, any> {
+export class ReconciliationTrade extends React.Component<any, any> {
 
   /**
    * 下载
-   * @param params  请求参数
+   * @param params   参数
    */
   onSubmit(params) {
-    getActions().reconciliation.startCreate(params);
+    getActions().reconciliationSettle.startDownload(params);
   }
 
   render() {
     const {processing, ...other} = this.props;
     const formProps: any = {...other};
+
     return (
       <React.Fragment>
         <FormContainer fieldGroups={settleSearch}
                        formSubmitProcessing={processing}
-                       formSubmitButtonName="下载"
                        onSubmit={this.onSubmit}
                        {...formProps}
         />

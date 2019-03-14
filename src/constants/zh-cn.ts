@@ -73,8 +73,8 @@ export const menu = {
   funds: '资金管理',
   fundsSettlement: '结算明细',
   reconciliation: '对账管理',
-  reconciliationBillDown: '账单下载',
-  reconciliationServiceBill: '服务费账单'
+  reconciliationSettle: '结算信息下载',
+  reconciliationTrade: '交易下载'
 };
 
 // 后台返回错误的错误信息

@@ -11,6 +11,7 @@ export default {
   session: `${api}/session`,
   settles: `${api}/settles`,
   downloadSettle: `${api}/download/payment-settle`,
+  downloadTrade: `${api}/download/payment-record`,
 
   send: `${api}/merchant-check-value`,
 

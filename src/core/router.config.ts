@@ -6,8 +6,8 @@ import { TradeRefund } from '../container/Business/TradeRefund';
 
 import { FundsSettlement } from '../container/Funds/FundsSettlement';
 
-import { ReconciliationServiceBill } from '../container/Reconciliation/ReconciliationServiceBill';
-import { ReconciliationBillDown } from '../container/Reconciliation/ReconciliationBillDown';
+import { ReconciliationTrade } from '../container/Reconciliation/ReconciliationTrade';
+import { ReconciliationSettle } from '../container/Reconciliation/ReconciliationSettle';
 
 import { menu } from '../constants/zh-cn';
 
@@ -24,8 +24,8 @@ export const routerPath: any = {
   fundsSettlement: '/funds/settlement',
 
   reconciliation: '/reconciliation',
-  reconciliationBillDown: '/reconciliation/bill-down',
-  reconciliationServiceBill: '/reconciliation/service-bill'
+  reconciliationSettle: '/reconciliation/settle',
+  reconciliationTrade: '/reconciliation/trade'
 };
 
 export default [{
@@ -49,11 +49,11 @@ export default [{
   title: menu.fundsSettlement,
   component: FundsSettlement
 }, {
-  path: routerPath.reconciliationBillDown,
-  title: menu.reconciliationBillDown,
-  component: ReconciliationBillDown
+  path: routerPath.reconciliationSettle,
+  title: menu.reconciliationSettle,
+  component: ReconciliationSettle
 }, {
-  path: routerPath.reconciliationServiceBill,
-  title: menu.reconciliationServiceBill,
-  component: ReconciliationServiceBill
+  path: routerPath.reconciliationTrade,
+  title: menu.reconciliationTrade,
+  component: ReconciliationTrade
 }];

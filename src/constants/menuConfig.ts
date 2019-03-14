@@ -56,12 +56,12 @@ export const menuConfig: Array<MenuConfigProps> = [{
   path: routerPath.reconciliation,
   icon: CalendarToday,
   children: [{
-    name: menu.reconciliationBillDown,
-    path: routerPath.reconciliationBillDown,
+    name: menu.reconciliationSettle,
+    path: routerPath.reconciliationSettle,
     icon: Assessment
   }, {
-    name: menu.reconciliationServiceBill,
-    path: routerPath.reconciliationServiceBill,
+    name: menu.reconciliationTrade,
+    path: routerPath.reconciliationTrade,
     icon: Assessment
   }]
 }];
