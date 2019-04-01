@@ -1,67 +1,59 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  <title>缴费系统</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>缴费系统</title>
 </head>
 <body>
-<div style="height: 100vh; display: flex; justify-content: center; align-items: center;">
-  <div class="card" style="width: 18rem; border: none; margin: 0 auto;">
-    <h1><span class="card-img-top card-title badge badge-secondary">缴费系统</span></h1>
-    <div class="card-body">
-      <form>
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">班级</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputName">姓名</label>
-          <input class="form-control" id="exampleInputName" aria-describedby="emailHelp"
-                 placeholder="选择姓名">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputStudentId">学号</label>
-          <input type="number" class="form-control" id="exampleInputStudentId" aria-describedby="numberHelp"
-                 placeholder="选择学号">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputStudentId">金额</label>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">¥</span>
+<div class="wx-container">
+    <div class="container wx-cardContainer wx-cardContainer-mode">
+        <p class="card-title wx-cardContainer-title-mode">缴费系统</p>
+        <div class="row wx-cardContainer-row wx-cardContainer-row-mode">
+            <div class="col-4 wx-row-leftCol wx-row-leftCol-mode"></div>
+            <div class="col-8 wx-row-rightCol-mode">
+                <p>姓名: XXXX</p>
+                <p>学号: 9483 23444 4322 3444</p>
             </div>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-            <div class="input-group-append">
-              <span class="input-group-text">.00</span>
-            </div>
-          </div>
         </div>
-        <button type="button" class="btn btn-primary btn-lg" style="width: 100%">微信支付</button>
-      </form>
     </div>
-  </div>
+    <form class="wx-form-container">
+        <div class="form-left">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">班级</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputStudentId">金额</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">¥</span>
+                    </div>
+                    <input type="text" class="form-control"
+                           aria-label="Amount (to the nearest dollar)"
+                           id="exampleInputStudentId"
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="form-right">
+            <button type="button" class="btn btn-primary btn-lg" style="width: 100%">微信支付</button>
+        </div>
+    </form>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+<script src="js/jquery.3.2.1.min.js"></script>
+<script src="js/popper.1.12.9.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

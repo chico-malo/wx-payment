@@ -1,0 +1,77 @@
+/**
+ * Copyright: Copyright (C) 2018 sitb.software,All Rights Reserved
+ * author: yangyao(873241789@qq.com)
+ * date: 2019-04-01
+ */
+.wx-container {
+    height: 100vh;
+    background-color: #88888821;
+}
+
+/*start 卡片头部*/
+.wx-cardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    min-height: 30vh;
+}
+
+.wx-cardContainer-mode {
+    background-image: linear-gradient(135deg, #72EDF2 10%, #5151E5 100%);
+}
+
+/*end 卡片头部*/
+/*start 卡片 内部样式*/
+.wx-cardContainer-title-mode {
+    color: #fff;
+}
+
+.wx-cardContainer-row {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    height: 130px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.wx-cardContainer-row-mode {
+    background-color: rgb(34, 32, 29);
+    box-shadow: 6px 6px 10px 0 #33333391;
+}
+
+.wx-row-leftCol {
+    height: 100%;
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+}
+.wx-row-leftCol-mode {
+    background-image: url("../image/deer.png");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center;
+}
+
+.wx-row-leftCol img {
+    max-width: 100%;
+    height: auto;
+}
+
+.wx-row-rightCol-mode {
+    color: #fff;
+}
+/*end 卡片 内部样式*/
+/*start form*/
+.wx-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    height: 70vh;
+}
+/*end form*/
